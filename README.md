@@ -1,3 +1,5 @@
+<!-- Minor change for deployment test -->
+
 # OB Barcode generator
 
 Browser-based barcode and QR code generator with export tools, batch label workflow, PWA support, and AdSense-ready layout safeguards.
