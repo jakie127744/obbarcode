@@ -1601,11 +1601,25 @@
     );
   }
 
+  function isDevMode() {
+    try {
+      const loc = window.location;
+      if (loc.hostname === "localhost" || loc.hostname === "127.0.0.1") return true;
+      if (loc.protocol === "file:") return true;
+      if (/\bdev=1\b/.test(loc.search)) return true;
+    } catch (_) {}
+    return false;
+  }
+
   function initDeploymentChecks() {
+    const checksCard = document.querySelector('.checks-card');
+    if (!isDevMode()) {
+      if (checksCard) checksCard.style.display = 'none';
+      return;
+    }
     if (!runChecksBtn) {
       return;
     }
-
     runChecksBtn.addEventListener("click", runDeploymentChecks);
   }
 
