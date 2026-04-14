@@ -1,34 +1,118 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('obThemeMode') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-9907028021598445" />
-    <title>About Us | OB Barcode generator</title>
+    <title>About Us | OB Barcode Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="layout" style="grid-template-columns: 1fr;">
-      <section class="generator-zone">
-        <article class="card content-card">
-          <h1>About Us</h1>
-          <p>
-            OB Barcode generator is a web tool by <strong>Molave Labs</strong>, built to make barcode and QR
-            generation fast, simple, and accessible for everyone.
-          </p>
-          <p>
-            We focus on practical tools for developers, operations teams, and small businesses.
-            Our goal is to provide reliable, browser-based utilities without unnecessary complexity.
-          </p>
-          <h2>What We Build</h2>
-          <ul>
-            <li>Barcode and QR generation tools</li>
-            <li>Batch label workflows for printing</li>
-            <li>Privacy-conscious, client-side utilities</li>
-          </ul>
-          <p><a href="index.html">Back to Home</a></p>
-        </article>
-      </section>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445" crossorigin="anonymous"></script>
+    <style>
+        .page-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2.5rem;
+            line-height: 1.7;
+        }
+        .privacy-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+        .privacy-nav h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--panel-soft);
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-4px);
+        }
+        h2 {
+            margin-top: 2rem;
+            font-size: 1.25rem;
+            color: var(--ink);
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+        p, ul, li { margin-bottom: 1rem; color: var(--muted); }
+        .footer-note {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        });
+    </script>
+</head>
+<body class="dashboard">
+    <main class="page-content card">
+        <nav class="privacy-nav">
+            <h1>About Us</h1>
+            <a href="index.html" class="back-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Generator</a>
+        </nav>
+                <section>
+            <p>OB Barcode Generator is a high-performance, client-side tool engineered by <strong>Molave Labs</strong>. We focus on bridge-building utilities that help businesses, warehouses, and developers manage physical assets with digital precision.</p>
+
+            <h2>Our Mission</h2>
+            <p>Our goal is to eliminate the unnecessary complexity often associated with professional barcode generation. By processing all data locally in the browser, we provide a secure, fast, and free alternative to expensive desktop software.</p>
+
+            <h2>Engineering Standards</h2>
+            <ul>
+                <li><strong>Privacy First:</strong> No data leaves your machine during generation.</li>
+                <li><strong>Open Standards:</strong> We utilize industry-standard symbologies (Code 128, UPC, QR).</li>
+                <li><strong>Accessibility:</strong> Built with modern web standards (PWA) for use on any device.</li>
+            </ul>
+
+            <p>Part of the <a href="https://chessbotbuddies.org" target="_blank">ChessBotBuddies</a> developer network.</p>
+        </section>
+        <div class="footer-note">
+            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+        </div>
     </main>
-  </body>
+    <script src="app.js"></script>
+    
+</body>
 </html>

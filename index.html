@@ -1,497 +1,326 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta name="google-site-verification" content="pNNYDbapMJ1f1beBfjTol4bkycHegXfoNOS1fW5hd58" />
+    <meta charset="UTF-8">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Generate free barcodes online with QR Code, Code 128, Code 39, EAN-13, and UPC-A support. Export PNG/SVG, batch-generate labels from CSV, and print with confidence."
-    />
-    <meta name="theme-color" content="#0f766e" />
-    <meta name="google-adsense-account" content="ca-pub-9907028021598445" />
-    <!-- Social sharing meta tags -->
-    <meta property="og:title" content="OB Barcode Generator" />
-    <meta property="og:description" content="Generate free barcodes and QR codes, batch print labels, and export in PNG/SVG. PWA, AdSense-ready, and privacy-first." />
-    <meta property="og:image" content="icons/logo-share.png" />
-    <meta property="og:url" content="https://obbarcode.com/" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="OB Barcode Generator" />
-    <meta name="twitter:description" content="Generate free barcodes and QR codes, batch print labels, and export in PNG/SVG. PWA, AdSense-ready, and privacy-first." />
-    <meta name="twitter:image" content="icons/logo-share.png" />
-    <title>OB Barcode generator</title>
+    <meta name="description" content="Generate free barcodes online: QR Code, Code 128, EAN-13, and more. Export PNG/SVG, batch-generate labels from CSV." />
+    <meta name="theme-color" content="#0f172a" />
+    <title>OB Barcode Generator | Professional Label Tools</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="icons/icon-192.svg" />
-    <link rel="apple-touch-icon" href="icons/icon-192.svg" />
     <link rel="stylesheet" href="styles.css" />
-
-    <!-- Libraries for client-side generation -->
     <script src="vendor/JsBarcode.all.min.js" defer></script>
     <script src="vendor/qrcode-generator.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
     <script src="app.js" defer></script>
-
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445"
-      crossorigin="anonymous"
-    ></script>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is a Code 128 barcode?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Code 128 is a high-density linear barcode format widely used for logistics, inventory, and internal tracking labels."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How much data can a Code 128 barcode hold?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Capacity varies by scanner and print quality, but Code 128 can hold full ASCII data and is efficient for alphanumeric identifiers."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How to generate multiple Code 128 barcodes?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Use the Batch CSV and Label Sheet section. Add one row per code then click Generate Label Sheet."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I generate barcodes programmatically?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "This web app is browser-based. For automation workflows, you can use the same formats via scripts and barcode libraries in your own applications."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Need help generating barcodes?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Visit our Support page for troubleshooting and common setup guidance."
-            }
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445" crossorigin="anonymous"></script>
+        <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a Code 128 barcode?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Code 128 is a high-density linear barcode format widely used for logistics, inventory, and internal tracking labels."
           }
-        ]
-      }
+        },
+        {
+          "@type": "Question",
+          "name": "How much data can a Code 128 barcode hold?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Code 128 can hold full ASCII data and is efficient for alphanumeric identifiers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How to generate multiple barcodes?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the Batch CSV and Label Sheet section to upload data and generate a printable sheet."
+          }
+        }
+      ]
+    }
     </script>
   </head>
-  <body>
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="top-left-controls" aria-label="Theme and install actions">
-          <label class="theme-selector" for="themeMode">
-            <span>Theme</span>
-            <select id="themeMode" aria-label="Choose theme mode">
-              <option value="system" selected>System</option>
-              <option value="light">Light</option>
-              <option value="dark">Dark</option>
-            </select>
-          </label>
-          <button id="installBtn" type="button" class="btn install hidden">Install App</button>
+  <body class="dark">
+    <header class="app-header">
+      <div class="header-content container">
+        <div class="brand">
+          <img src="icons/ob-logo.svg" alt="OB logo" class="logo" />
+          <h1>OB Barcode</h1>
         </div>
-
-        <div class="brand-row">
-          <img src="icons/ob-logo.svg" class="site-logo" alt="OB Barcode generator logo" />
-          <h1>OB Barcode generator</h1>
+        <div class="header-actions">
+          <button id="themeToggle" class="icon-btn" title="Toggle Theme"><span id="themeToggleIcon"></span></button>
+          <button id="installBtn" class="btn primary install-btn">Install App</button>
         </div>
-        <p>
-          Create scan-ready codes in your browser, export as PNG or SVG, and keep your
-          content private.
-        </p>
       </div>
     </header>
 
-    <noscript>
-      <section class="noscript-banner" aria-label="JavaScript required notice">
-        <h2>JavaScript is required</h2>
-        <p>
-          This generator runs fully in your browser and needs JavaScript enabled to render and export
-          barcodes and QR codes.
-        </p>
-      </section>
-    </noscript>
-
-    <main class="layout" aria-label="Generator and ad layout">
-      <section class="generator-zone" aria-label="Code generator">
-        <article class="card content-card intro-card" aria-label="Site description">
-          <h2>Generate Free Barcodes Online</h2>
-          <p>
-            Create linear barcodes and 2D codes instantly with no software installation.
-            OB Barcode generator currently supports QR Code, Code 128, Code 39, EAN-13,
-            and UPC-A with real-time preview, PNG/SVG export, and print-ready output.
-          </p>
-          <p>
-            The tool is designed for developers, small businesses, and operations teams who
-            need fast code generation for websites, labels, inventory tags, and product workflows.
-            You can also batch-generate printable label sheets from CSV in one click.
-          </p>
-          <p>
-            Data stays in your browser for generation. Review our
-            <a href="terms.html">Terms of Use</a> and
-            <a href="privacy.html">Privacy Policy</a> for details.
-          </p>
-        </article>
-
-        <div class="card controls-card">
-          <h2>Generate</h2>
-          <form id="generatorForm" novalidate>
-            <div class="grid two">
-              <label>
-                <span>Format</span>
-                <select id="format" name="format" aria-label="Select code format">
-                  <option value="QR">QR Code</option>
-                  <option value="CODE128">Code 128</option>
-                  <option value="CODE39">Code 39</option>
-                  <option value="EAN13">EAN-13</option>
-                  <option value="UPCA">UPC-A</option>
-                </select>
-                <small id="formatHint" class="field-hint">QR Code: great for links and mobile scanning.</small>
-              </label>
-
-              <label>
-                <span>QR Error Correction</span>
-                <select id="qrEc" name="qrEc" aria-label="Select QR error correction">
-                  <option value="L">Low (7%)</option>
-                  <option value="M" selected>Medium (15%)</option>
-                  <option value="Q">Quartile (25%)</option>
-                  <option value="H">High (30%)</option>
-                </select>
-                <small class="field-hint">Higher levels recover more damage but store slightly less data.</small>
-              </label>
+    <main class="dashboard container">
+            <div class="dashboard-grid">
+        <!-- COLUMN 1: Generation & Presets -->
+        <div class="dashboard-col">
+          <section class="card dashboard-generate">
+            <div class="card-header">
+              <h2>Generate</h2>
+              <p class="subtitle">Select format and enter your data</p>
             </div>
-
-            <label>
-              <span>Data</span>
-              <textarea
-                id="data"
-                name="data"
-                rows="4"
-                placeholder="Enter text, URL, number, or payload"
-                required
-                aria-describedby="validationMessage inlineValidation"
-              ></textarea>
-              <small id="inlineValidation" class="inline-validation" role="status" aria-live="polite"></small>
-            </label>
-
-            <div class="preset-row" aria-label="Quick presets">
-              <button type="button" class="preset" data-preset="url">Sample URL</button>
-              <button type="button" class="preset" data-preset="wifi">Sample Wi-Fi</button>
-              <button type="button" class="preset" data-preset="ean">Sample EAN-13</button>
-              <button type="button" class="preset" data-preset="upc">Sample UPC-A</button>
-            </div>
-
-            <div class="grid three">
-              <label>
-                <span>Line Color</span>
-                <input id="lineColor" type="color" value="#111111" />
-              </label>
-              <label>
-                <span>Background</span>
-                <input id="bgColor" type="color" value="#ffffff" />
-              </label>
-              <label>
-                <span>Margin</span>
-                <input id="margin" type="number" min="0" max="50" value="8" />
-              </label>
-            </div>
-
-            <div class="grid three">
-              <label>
-                <span>Barcode Width</span>
-                <input id="barWidth" type="number" min="1" max="8" value="2" />
-              </label>
-              <label>
-                <span>Barcode Height</span>
-                <input id="barHeight" type="number" min="30" max="300" value="100" />
-              </label>
-              <label class="checkbox-label">
-                <input id="showText" type="checkbox" checked />
-                <span>Show text (barcode)</span>
-              </label>
-            </div>
-
-            <div class="actions">
-              <button id="generateBtn" type="submit" class="btn primary">Generate</button>
-              <button id="downloadPng" type="button" class="btn">Download PNG</button>
-              <button id="downloadSvg" type="button" class="btn">Download SVG</button>
-              <button id="copySvgBtn" type="button" class="btn">Copy SVG</button>
-              <button id="copyBtn" type="button" class="btn">Copy Image</button>
-              <button id="resetBtn" type="button" class="btn ghost">Reset</button>
-            </div>
-
-            <div class="theme-options">
-              <label class="checkbox-label compact">
-                <input id="darkAds" type="checkbox" checked />
-                <span>Use dark ad containers in dark mode</span>
-              </label>
-            </div>
-
-            <section class="workflow-panel" aria-label="Pro workflow panel">
-              <h3>Pro Workflow</h3>
-              <div class="workflow-grid">
-                <label>
-                  <span>Preset Name</span>
-                  <input id="presetName" type="text" maxlength="40" placeholder="e.g. Product SKU Code" />
-                </label>
-                <button id="savePresetBtn" type="button" class="btn">Save Current Preset</button>
-              </div>
-              <div class="workflow-grid">
-                <label>
-                  <span>Saved Presets</span>
-                  <select id="savedPresets" aria-label="Saved presets">
-                    <option value="">Select a saved preset</option>
+            <form id="generatorForm" novalidate>
+              <div class="form-row">
+                <div class="field">
+                  <label for="format">Format</label>
+                  <select id="format" name="format">
+                    <option value="QR">QR Code</option>
+                    <option value="CODE128">Code 128</option>
+                    <option value="CODE39">Code 39</option>
+                    <option value="EAN13">EAN-13</option>
+                    <option value="UPCA">UPC-A</option>
                   </select>
-                </label>
-                <div class="workflow-shortcuts">
-                  <button id="loadPresetBtn" type="button" class="btn">Load Preset</button>
-                  <button id="deletePresetBtn" type="button" class="btn ghost">Delete Preset</button>
+                  <p id="formatHint" class="subtitle" style="margin-top: 8px; margin-bottom: 0;"></p>
+                </div>
+                <div class="field">
+                  <label for="qrEc">QR Correction</label>
+                  <select id="qrEc" name="qrEc">
+                    <option value="L">L (7%)</option>
+                    <option value="M" selected>M (15%)</option>
+                    <option value="Q">Q (25%)</option>
+                    <option value="H">H (30%)</option>
+                  </select>
                 </div>
               </div>
-              <div>
-                <h4>Recent Codes</h4>
-                <div id="recentCodes" class="recent-codes" aria-live="polite"></div>
-              </div>
-              <div class="shortcut-help">
-                <strong>Shortcuts:</strong> Ctrl/Cmd + Enter to generate, Ctrl/Cmd + D to download PNG,
-                Ctrl/Cmd + Shift + D to download SVG.
-              </div>
-            </section>
-          </form>
 
-          <p id="validationMessage" class="status" role="status" aria-live="polite"></p>
+              <div class="field">
+                <label for="data">Code Content</label>
+                <div class="input-wrapper">
+                  <input id="data" type="text" placeholder="https://example.com" spellcheck="false" />
+                  <div id="inlineValidation" class="inline-validation"></div>
+                </div>
+              </div>
+
+              <div class="expandable-settings">
+                <details>
+                  <summary>Display Settings</summary>
+                  <div class="settings-grid">
+                    <div class="field">
+                      <label for="lineColor">Line Color</label>
+                      <input id="lineColor" type="color" value="#111111" />
+                    </div>
+                    <div class="field">
+                      <label for="bgColor">Background</label>
+                      <input id="bgColor" type="color" value="#ffffff" />
+                    </div>
+                    <div class="field">
+                      <label for="margin">Margin</label>
+                      <input id="margin" type="number" value="8" min="0" />
+                    </div>
+                    <div class="field">
+                      <label for="barWidth">Scale / Width</label>
+                      <input id="barWidth" type="number" value="2" min="1" step="0.5" />
+                    </div>
+                    <div class="field">
+                      <label for="barHeight">Height (Barcodes)</label>
+                      <input id="barHeight" type="number" value="100" min="20" />
+                    </div>
+                    <div class="field">
+                      <label class="checkbox">
+                        <input id="showText" type="checkbox" checked />
+                        <span>Show Text</span>
+                      </label>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <div class="ad-opt-in">
+                <label class="checkbox">
+                  <input id="darkAds" type="checkbox" checked />
+                  <span>Dark ad containers</span>
+                </label>
+              </div>
+
+              <button id="generateBtn" type="submit" class="btn primary full-width">Generate Barcode</button>
+              <p id="validationMessage" class="status-msg" style="margin-top: 8px;"></p>
+            </form>
+          </section>
+
+          <section class="card dashboard-pro-workflow">
+            <h3>Pro Workflow</h3>
+            <div class="field">
+              <label for="presetName">Preset Name</label>
+              <div class="input-group">
+                <input id="presetName" type="text" placeholder="e.g. Shipping Label" />
+                <button id="savePresetBtn" class="btn primary">Save</button>
+              </div>
+            </div>
+            <div class="field">
+              <label for="savedPresets">Load Saved</label>
+              <div class="input-group">
+                <select id="savedPresets">
+                  <option value="">Select preset...</option>
+                </select>
+                <button id="loadPresetBtn" class="btn">Load</button>
+                <button id="deletePresetBtn" class="btn ghost">Delete</button>
+              </div>
+            </div>
+            <div class="recents">
+              <h4>Recent Codes</h4>
+              <div id="recentCodes" class="recents-list"></div>
+            </div>
+          </section>
+        
+          <section class="card dashboard-faq">
+            <h3>Frequently Asked Questions</h3>
+            <details class="faq-item">
+              <summary>What is a Code 128 barcode?</summary>
+              <p>Code 128 is a high-density linear barcode format widely used for logistics, inventory, and internal tracking labels.</p>
+            </details>
+            <details class="faq-item">
+              <summary>How much data can a Code 128 barcode hold?</summary>
+              <p>Capacity varies by scanner and print quality, but Code 128 can hold full ASCII data and is efficient for alphanumeric identifiers.</p>
+            </details>
+            <details class="faq-item">
+              <summary>How to generate multiple barcodes at once?</summary>
+              <p>Use the **Batch Labels** section in the middle column. Upload a CSV file or paste your data, then click 'Generate Sheet' to arrange them for printing.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Can I generate barcodes programmatically?</summary>
+              <p>This app is browser-based. For automation, you can use similar barcode libraries (like JsBarcode) in your own server-side or client-side applications.</p>
+            </details>
+            <details class="faq-item">
+              <summary>Need additional help?</summary>
+              <p>Visit our <a href="support.html">Support page</a> for detailed troubleshooting and setup guidance.</p>
+            </details>
+          </section>
+        </div>
+        <!-- COLUMN 2: Live View & Batch -->
+        <div class="dashboard-col">
+          <section class="card dashboard-preview">
+            <h3>Live Preview</h3>
+            <div id="previewFrame" class="preview-area">
+              <canvas id="qrCanvas" width="320" height="320"></canvas>
+              <svg id="barcodeSvg"></svg>
+            </div>
+            <div class="actions-grid">
+              <button id="downloadPng" class="btn primary">Download PNG</button>
+              <button id="downloadSvg" class="btn">Download SVG</button>
+              <button id="copySvgBtn" class="btn">Copy SVG</button>
+              <button id="copyBtn" class="btn">Copy Img</button>
+              <button id="resetBtn" class="btn ghost">Reset</button>
+            </div>
+          </section>
+
+          <section class="card dashboard-batch">
+            <h3>Batch Labels</h3>
+            <div class="field">
+              <label>CSV File</label>
+              <input id="csvFile" type="file" accept=".csv" />
+            </div>
+            <div class="btn-group">
+              <button id="downloadTemplate" class="btn small">Template</button>
+              <button id="loadExampleCsv" class="btn small ghost">Load Example</button>
+            </div>
+            <textarea id="batchInput" rows="4" placeholder="format,data\nQR,https://example.com" spellcheck="false"></textarea>
+            <div class="actions-grid">
+              <button id="generateBatch" class="btn primary">Generate Sheet</button>
+              <button id="downloadBatchZip" class="btn">ZIP</button>
+              <button id="printLabels" class="btn">Print</button>
+              <button id="clearBatch" class="btn ghost">Clear</button>
+            </div>
+                        <div class="label-sheet-config inline-config">
+              <div class="field">
+                <label for="labelWidth">W (mm)</label>
+                <input id="labelWidth" type="number" value="45" />
+              </div>
+              <div class="field">
+                <label for="labelHeight">H (mm)</label>
+                <input id="labelHeight" type="number" value="25" />
+              </div>
+            </div>
+            <p id="batchStatus" class="status-msg"></p>
+          </section>
+          <div id="labelSheet" class="label-sheet hidden"></div>
         </div>
 
-        <div class="card preview-card no-ad-zone" aria-label="Live preview">
-          <h2>Live Preview</h2>
-          <div class="preview-frame" id="previewFrame">
-            <canvas id="qrCanvas" width="320" height="320" aria-label="QR code preview"></canvas>
-            <svg id="barcodeSvg" aria-label="Barcode preview" role="img"></svg>
-          </div>
-          <p class="tip">
-            Print tip: prefer SVG for labels and posters to preserve sharp edges at any size.
-          </p>
+        <!-- COLUMN 3: Info & Ads -->
+        <div class="dashboard-col">
+          <section class="card ad-sidebar">
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9907028021598445" data-ad-slot="3889176136" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          </section>
+
+          <a href="https://chessbotbuddies.org" target="_blank" class="card promo-card">
+            <span class="badge">Sponsored</span>
+            <h3>ChessBotBuddies</h3>
+            <img src="assets/mascot.png" alt="Mascot" class="promo-img" />
+            <p>Master chess with our interactive bot trainers!</p>
+          </a>
+
+          <section class="card info-card">
+            <h4>Pro Scan Tips</h4>
+            <ul>
+              <li>High contrast (black/white) is best.</li>
+              <li>Keep a clear "quiet zone" around codes.</li>
+              <li>Test scans on multiple device types.</li>
+            </ul>
+          </section>
+
+          <section class="card info-card legal-sm">
+            <p><strong>Privacy:</strong> No browser data is stored/uploaded.</p>
+            <p><strong>Ads:</strong> Non-intrusive placeholders. No pop-ups.</p>
+            <p><strong>Credits:</strong> Engineered by Molave Labs.</p>
+          </section>
         </div>
-
-        <article class="card batch-card no-ad-zone" aria-label="Batch generator and label sheet">
-          <h2>Batch CSV and Label Sheet</h2>
-          <p class="tip">
-            CSV format: <strong>format,data</strong> per row. Example: <strong>EAN13,5901234123457</strong>
-          </p>
-
-          <div class="batch-actions">
-            <input id="csvFile" type="file" accept=".csv,text/csv" aria-label="Upload CSV file" />
-            <button id="downloadTemplate" type="button" class="btn">Download CSV Template</button>
-            <button id="loadExampleCsv" type="button" class="btn ghost">Load Example CSV</button>
+        <section class="card dashboard-multiplex-ad">
+          <div class="ad-placeholder guarded-ad">
+            <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9907028021598445" data-ad-slot="5083799737"></ins>
           </div>
-
-          <label>
-            <span>Batch CSV</span>
-            <textarea
-              id="batchInput"
-              rows="7"
-              placeholder="format,data&#10;QR,https://example.com&#10;EAN13,5901234123457"
-            ></textarea>
-          </label>
-
-          <div class="batch-actions">
-            <button id="generateBatch" type="button" class="btn primary">Generate Label Sheet</button>
-            <button id="downloadBatchZip" type="button" class="btn">Download ZIP</button>
-            <button id="printLabels" type="button" class="btn">Print Labels</button>
-            <button id="clearBatch" type="button" class="btn ghost">Clear Labels</button>
-          </div>
-
-          <p id="batchStatus" class="status" role="status" aria-live="polite"></p>
-
-          <div class="label-sheet-toolbar">
-            <label>
-              <span>Label Width (mm)</span>
-              <input id="labelWidth" type="number" min="20" max="90" value="45" />
-            </label>
-            <label>
-              <span>Label Height (mm)</span>
-              <input id="labelHeight" type="number" min="15" max="60" value="25" />
-            </label>
-          </div>
-
-          <section id="labelSheet" class="label-sheet" aria-label="Printable label sheet"></section>
-        </article>
-
-        <article class="card checks-card" aria-label="Deployment readiness checks">
-          <h2>Deployment Readiness</h2>
-          <p class="tip">Run a quick preflight before publishing to verify essential production checks.</p>
-          <div class="batch-actions">
-            <button id="runChecksBtn" type="button" class="btn">Run Preflight Checks</button>
-          </div>
-          <ul id="checksOutput" class="checks-output" aria-live="polite"></ul>
-        </article>
-      </section>
-
-      <aside class="ad-column" aria-label="Advertisements">
-        <section
-          class="ad-slot guarded-ad"
-          aria-label="Advertisement sidebar"
-          data-slot-id="3889176136"
-          data-min-distance="120"
-        >
-          <h3>Advertisements</h3>
-          <p class="ad-note">Ad slot 300x600. Keep ads visually separate from controls to avoid accidental clicks.</p>
-          <ins class="adsbygoogle"
-               style="display:block"
-               data-ad-client="ca-pub-9907028021598445"
-               data-ad-slot="3889176136"
-               data-ad-format="auto"
-               data-full-width-responsive="true"></ins>
         </section>
-
-        <a
-          class="card promo-card promo-card-wide sponsor-sidebar promo-link"
-          aria-label="Open Chess Bot Buddies"
-          href="https://chessbotbuddies.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <p class="sponsored-label">Sponsored Link</p>
-          <h3>Explore Chess Bot Buddies</h3>
-          <img
-            src="assets/mascot.png"
-            class="sponsored-mascot"
-            alt="Chess Bot Buddies mascot"
-            loading="lazy"
-          />
-          <p>
-            Another Molave Labs app for chess learners.
-          </p>
-        </a>
-      </aside>
+      </div>
     </main>
 
-    <section class="ad-row" aria-label="Advertisement in-content">
-      <div
-        class="ad-slot guarded-ad"
-        data-slot-id="5083799737"
-        data-min-distance="120"
-      >
-        <h3>Advertisements</h3>
-        <p class="ad-note">Multiplex ad unit (autorelaxed) for bottom horizontal placement.</p>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-9907028021598445"
-             data-ad-slot="5083799737"></ins>
-      </div>
-    </section>
-
-    <section class="tips-row" aria-label="Scan and print tips">
-      <article class="card content-card">
-        <h2>Scan and Print Tips</h2>
-        <ul>
-          <li>Use dark foreground on light background for reliable scanning.</li>
-          <li>Keep a visible quiet zone around all sides of the code.</li>
-          <li>For QR logos or styling, increase error correction to Q or H.</li>
-          <li>For retail labels, verify EAN/UPC digit count before printing batches.</li>
-        </ul>
-      </article>
-    </section>
-
-    <section class="faq-row" aria-label="Frequently asked questions">
-      <article class="card faq-card">
-        <h2>FAQs</h2>
-
-        <details>
-          <summary>What is a Code 128 barcode?</summary>
-          <p>
-            Code 128 is a high-density linear barcode format widely used for logistics,
-            inventory, and internal tracking labels.
-          </p>
-        </details>
-
-        <details>
-          <summary>How much data can a Code 128 barcode hold?</summary>
-          <p>
-            Capacity varies by scanner and print quality, but Code 128 can hold full ASCII
-            data and is efficient for alphanumeric identifiers.
-          </p>
-        </details>
-
-        <details>
-          <summary>How to generate multiple Code 128 barcodes?</summary>
-          <p>
-            Use the Batch CSV and Label Sheet section. Add one row per code then click
-            Generate Label Sheet.
-          </p>
-        </details>
-
-        <details>
-          <summary>Can I generate barcodes programmatically?</summary>
-          <p>
-            This web app is browser-based. For automation workflows, you can use the same
-            formats via scripts and barcode libraries in your own applications.
-          </p>
-        </details>
-
-        <details>
-          <summary>Need help generating barcodes?</summary>
-          <p>
-            Visit our <a href="support.html">Support page</a> for troubleshooting and common
-            setup guidance.
-          </p>
-        </details>
-      </article>
-    </section>
-
-    <footer class="footer">
-      <div>
-        <h4>Privacy</h4>
-        <p>This tool generates codes locally in your browser. Data is not stored on a server.</p>
-      </div>
-      <div>
-        <h4>Ad Policy Reminder</h4>
-        <p>No pop-ups, no misleading labels, and no ad placements near generate/download actions.</p>
-      </div>
-      <div>
-        <h4>Credits</h4>
-        <p>Created by: Molave Labs</p>
-      </div>
-      <div>
-        <h4>Policy Pages</h4>
-        <p>
-          <a href="privacy.html">Privacy Policy</a> |
-          <a href="terms.html">Terms of Use</a> |
-          <a href="about.html">About Us</a> |
+    <footer class="app-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">OB Barcode</div>
+        <nav class="footer-nav">
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="about.html">About</a>
           <a href="support.html">Support</a>
-        </p>
+        </nav>
+        <p class="copyright">&copy; 2026 Molave Labs. All rights reserved.</p>
       </div>
     </footer>
 
-    <div id="consentBanner" class="consent hidden" role="dialog" aria-live="polite" aria-label="Consent banner">
-      <p>
-        We use cookies for essential functionality and ad personalization controls.
-        For users in EEA/UK/CH, consent is required before personalized ads.
-      </p>
-      <div class="consent-actions">
-        <button id="consentAccept" class="btn primary" type="button">Accept</button>
-        <button id="consentReject" class="btn" type="button">Reject Personalized Ads</button>
+    <div id="consentBanner" class="consent hidden">
+      <div class="container">
+        <p>This tool uses cookies for ad personalization. UK/EEA users must provide consent.</p>
+        <div class="consent-btns">
+          <button id="consentAccept" class="btn primary">Accept</button>
+          <button id="consentReject" class="btn">Reject</button>
+        </div>
       </div>
     </div>
 
-    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite" aria-atomic="true"></div>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+

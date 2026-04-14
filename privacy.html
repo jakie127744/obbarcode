@@ -1,36 +1,170 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('obThemeMode') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-9907028021598445" />
-    <title>Privacy Policy | OB Barcode generator</title>
+    <title>Privacy Policy | OB Barcode Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="layout" style="grid-template-columns: 1fr;">
-      <section class="generator-zone">
-        <article class="card">
-          <h1>Privacy Policy</h1>
-          <p>Last updated: April 9, 2026</p>
-          <p>
-            OB Barcode generator is a client-side utility. Generated barcode and QR data is processed in your browser.
-            We do not intentionally store your generated content on our servers.
-          </p>
-          <h2>AdSense and Cookies</h2>
-          <p>
-            We use Google AdSense to display ads. AdSense may use cookies and similar technologies for ad serving,
-            frequency capping, and measurement. For users in EEA/UK/CH, consent controls are shown before personalized ads.
-          </p>
-          <h2>Local Storage</h2>
-          <p>
-            We store limited preferences in your browser (for example theme, consent choice, and ad theme preference).
-          </p>
-          <h2>Contact</h2>
-          <p>Created by: Molave Labs</p>
-          <p><a href="index.html">Back to Home</a></p>
-        </article>
-      </section>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445" crossorigin="anonymous"></script>
+    <style>
+        .page-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2.5rem;
+            line-height: 1.7;
+        }
+        
+        .privacy-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+        
+        .privacy-nav h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--panel-soft);
+            transition: all 0.2s ease;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-4px);
+        }
+
+        h2 {
+            margin-top: 2rem;
+            font-size: 1.25rem;
+            color: var(--ink);
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--muted);
+        }
+
+        .highlight-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            font-style: italic;
+        }
+
+        .footer-note {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        });
+    </script>
+</head>
+<body class="dashboard">
+    <main class="page-content card">
+        <nav class="privacy-nav">
+            <h1>Privacy Policy</h1>
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Generator
+            </a>
+        </nav>
+
+        <p class="subtitle">Last updated: April 13, 2026</p>
+
+        <section>
+            <p>At OB Barcode Generator, we take your privacy seriously. This document outlines the types of information we collect and how it is handled. Our goal is to provide a powerful tool while maintaining the highest standards of data protection.</p>
+            
+            <div class="highlight-box">
+                <strong>Our Core Philosophy:</strong> This is a client-side application. We believe your data belongs to you, which is why almost all processing happens exclusively on your device.
+            </div>
+
+            <h2>1. Client-Side Processing</h2>
+            <p>Unlike traditional barcode generators, OB Barcode Generator processes all data (text, URLs, and identifiers) directly in your web browser. When you generate a barcode or QR code, the logic runs on your computer. Your sensitive data is <strong>never uploaded to our servers</strong> for processing.</p>
+
+            <h2>2. Information We Collect</h2>
+            <p>We do not collect personal information that could identify you (such as your name or address) through the use of the generator. However, we may collect technical data including:</p>
+            <ul>
+                <li>Browser type and version.</li>
+                <li>Operating system.</li>
+                <li>Referral source (how you found us).</li>
+            </ul>
+
+            <h2>3. Cookies and Advertising</h2>
+            <p>We use <strong>Google AdSense</strong> to display advertisements. AdSense uses cookies to serve ads based on your prior visits to this website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site and/or other sites on the Internet.</p>
+            <p>For users in the European Economic Area (EEA), the UK, and Switzerland, we present a consent banner. If you reject personalized ads, Google will serve non-personalized ads, which do not rely on past behavior but may use contextual information.</p>
+
+            <h2>4. Local Storage</h2>
+            <p>To provide a better user experience, we use your browser's "Local Storage" to remember your preferences. This includes:</p>
+            <ul>
+                <li><strong>Theme Preference:</strong> Whether you prefer Dark Mode or Light Mode.</li>
+                <li><strong>Presets:</strong> Any barcode configurations you have intentionally saved for future use.</li>
+                <li><strong>Consent Choice:</strong> Your decision regarding ad personalization.</li>
+            </ul>
+            <p>This data remains on your device and is not synchronized to any external account.</p>
+
+            <h2>5. Service Security</h2>
+            <p>We implement a variety of security measures to maintain the safety of the application. Since we do not host a central database of your generated codes, the primary security for your generated assets resides in your local environment.</p>
+
+            <h2>6. Third-Party Links</h2>
+            <p>Occasionally, at our discretion, we may include or offer third-party products or services on our website (such as sponsored cards). These third-party sites have separate and independent privacy policies. We therefore have no responsibility or liability for the content and activities of these linked sites.</p>
+
+            <h2>7. Contact Information</h2>
+            <p>If there are any questions regarding this privacy policy, you may contact the development team at <strong>Molave Labs</strong>.</p>
+        </section>
+
+        <div class="footer-note">
+            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+        </div>
     </main>
-  </body>
+
+    <script src="app.js"></script>
+    
+</body>
 </html>

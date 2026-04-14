@@ -1,44 +1,120 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('obThemeMode') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
+    
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-adsense-account" content="ca-pub-9907028021598445" />
-    <title>Support | OB Barcode generator</title>
+    <title>Support | OB Barcode Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="layout" style="grid-template-columns: 1fr;">
-      <section class="generator-zone">
-        <article class="card content-card">
-          <h1>Support</h1>
-          <p>
-            Need help using OB Barcode generator? Use the options below to get support quickly.
-          </p>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445" crossorigin="anonymous"></script>
+    <style>
+        .page-content {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2.5rem;
+            line-height: 1.7;
+        }
+        .privacy-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+        .privacy-nav h1 {
+            margin: 0;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--panel-soft);
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateX(-4px);
+        }
+        h2 {
+            margin-top: 2rem;
+            font-size: 1.25rem;
+            color: var(--ink);
+            border-left: 4px solid var(--primary);
+            padding-left: 12px;
+        }
+        p, ul, li { margin-bottom: 1rem; color: var(--muted); }
+        .footer-note {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            if (isDark) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        });
+    </script>
+</head>
+<body class="dashboard">
+    <main class="page-content card">
+        <nav class="privacy-nav">
+            <h1>Support</h1>
+            <a href="index.html" class="back-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Generator</a>
+        </nav>
+                <section>
+            <p>Need assistance with barcode formatting or print settings? Explore our support guide below.</p>
 
-          <h2>Common Help Topics</h2>
-          <ul>
-            <li>Barcode format requirements (EAN-13, UPC-A, Code 39, Code 128)</li>
-            <li>Batch CSV label generation and printing</li>
-            <li>Download quality and scanner compatibility</li>
-            <li>PWA install and mobile usage</li>
-          </ul>
+            <h2>Scanning Issues</h2>
+            <p>If your barcodes aren''t scanning, check the following:</p>
+            <ul>
+                <li><strong>Quiet Zone:</strong> Ensure there is enough white space around the barcode.</li>
+                <li><strong>Contrast:</strong> Always print black bars on a white background.</li>
+                <li><strong>Scale:</strong> If the barcode is too small, it may exceed the DPI limits of your scanner. Use the "Scale" setting to increase width.</li>
+            </ul>
 
-          <h2>Contact</h2>
-          <p>
-            Team: Molave Labs<br />
-            Website: <a href="https://chessbotbuddies.org" target="_blank" rel="noopener noreferrer">chessbotbuddies.org</a>
-          </p>
+            <h2>Batch CSV Printing</h2>
+            <p>For batch generation, ensure your CSV follows the header format: <code>format,data</code> (e.g., <code>QR,https://molave.io</code>). Use the provided "Template" button in the Batch section for a sample file.</p>
 
-          <h2>Troubleshooting</h2>
-          <p>
-            If generated output does not appear, refresh with <strong>Ctrl+F5</strong>. If problems continue,
-            clear site storage/service worker and try again.
-          </p>
-
-          <p><a href="index.html">Back to Home</a></p>
-        </article>
-      </section>
+            <h2>Contact</h2>
+            <p>For technical inquiries or feature requests, contact the development team at Molave Labs or visit <a href="https://chessbotbuddies.org">chessbotbuddies.org</a>.</p>
+        </section>
+        <div class="footer-note">
+            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+        </div>
     </main>
-  </body>
+    <script src="app.js"></script>
+    
+</body>
 </html>
