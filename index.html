@@ -199,7 +199,6 @@
               <summary>Need additional help?</summary>
               <p>Visit our <a href="support.html">Support page</a> for detailed troubleshooting and setup guidance.</p>
             </details>
-          </section>
         </div>
         <!-- COLUMN 2: Live View & Batch -->
         <div class="dashboard-col">
@@ -256,12 +255,26 @@
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9907028021598445" data-ad-slot="3889176136" data-ad-format="auto" data-full-width-responsive="true"></ins>
           </section>
 
-          <a href="https://chessbotbuddies.org" target="_blank" class="card promo-card">
-            <span class="badge">Sponsored</span>
-            <h3>ChessBotBuddies</h3>
-            <img src="assets/mascot.png" alt="Mascot" class="promo-img" />
+          <a href="https://chessbotbuddies.org" target="_blank" class="card promo-card-v2">
+            <div class="ribbon">Sponsored</div>
+            <h3 class="promo-title">ChessBotBuddies</h3>
+            <div class="promo-asset">
+              <img src="assets/mascot.png" alt="Mascot" style="max-width: 80%; max-height: 80%;" />
+            </div>
             <p>Master chess with our interactive bot trainers!</p>
           </a>
+
+
+          <a href="https://precisioncalc.com" target="_blank" class="card promo-card-v2 featured">
+            <div class="ribbon">Featured</div>
+            <h3 class="promo-title">PrecisionCalc</h3>
+            <div class="promo-asset">
+              <span style="font-size: 3rem;">📊</span>
+            </div>
+            <p>High-precision financial & math calculators.</p>
+          </a>
+
+
 
           <section class="card info-card">
             <h4>Pro Scan Tips</h4>
@@ -283,7 +296,50 @@
             <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9907028021598445" data-ad-slot="5083799737"></ins>
           </div>
         </section>
+
+        <section class="card info-card dashboard-format-card">
+          <h4>Supported Formats</h4>
+          <p style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-top: 10px;">
+            <strong>QR Code:</strong> Best for web URLs and VCards.<br>
+            <strong>Code 128:</strong> Ideal for alphanumeric warehouse IDs.<br>
+            <strong>EAN-13 / UPC-A:</strong> Standard retail POS formats.<br>
+            <strong>Code 39:</strong> Used for legacy logistics systems.
+          </p>
+        </section>
+
+        <section class="card info-card dashboard-client-card">
+          <h4>Why Client-Side Processing?</h4>
+          <ul style="color: var(--muted); font-size: 0.95rem; line-height: 1.6; margin-top: 10px; padding-left: 1.2rem;">
+            <li style="margin-bottom: 6px;"><strong>Complete Privacy:</strong> Tracking URLs and sensitive IDs never leave your device for rendering.</li>
+            <li style="margin-bottom: 6px;"><strong>Ultra-Fast Speed:</strong> Render hundreds of scalable SVGs instantly without network delays or server load.</li>
+            <li><strong>Offline Capable:</strong> Built-in PWA support allows generation even without active internet.</li>
+          </ul>
+        </section>
       </div>
+
+      <article class="card publisher-content" style="margin-top: 2rem;">
+        <div style="max-width: 800px;">
+          <h2>About OB Barcode Generator</h2>
+          <p style="margin-top: 1rem; color: var(--muted); line-height: 1.6;">
+            OB Barcode Generator is a robust, professional-grade utility designed for generating high-quality vector and raster barcodes. 
+            Developed by <strong>Molave Labs</strong>, this tool provides developers, warehouse managers, and small business owners with a powerful platform 
+            to generate custom tracking labels securely, ensuring maximum data privacy through local processing.
+          </p>
+          
+          <h3 style="margin-top: 2rem;">Why Choose Our Generator?</h3>
+          <ul style="margin-top: 1rem; color: var(--muted); line-height: 1.6; padding-left: 1.5rem;">
+            <li style="margin-bottom: 0.5rem;"><strong>Complete Privacy:</strong> All barcode generation is performed client-side on your device. Your sensitive inventory identifiers and tracking URLs never leave your browser.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Extensive Symbologies:</strong> From standard QR Codes for web links to high-density <strong>Code 128</strong> and retail-standard <strong>EAN-13</strong> or <strong>UPC-A</strong>, we cover all business needs.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Batch Processing:</strong> Seamlessly generate hundreds of barcodes at once using bulk CSV uploads. Perfect for creating ready-to-print label sheets for shipping and logistics.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>High-Resolution Exports:</strong> Download crisp SVG vectors for lossless scaling on industrial printers, or standard PNGs for quick sharing across teams.</li>
+          </ul>
+
+          <h3 style="margin-top: 2rem;">Understanding Barcode Formats</h3>
+          <p style="margin-top: 1rem; color: var(--muted); line-height: 1.6;">
+            Choosing the appropriate symbology is vital for scanning reliability. <strong>QR Codes</strong> are excellent for embedding extensive alphanumeric data such as websites or contact cards. For product retail environments, <strong>UPC-A</strong> and <strong>EAN-13</strong> are the global standards. If you require alphanumeric internal tracking for warehouses, <strong>Code 128</strong> provides unmatched data density and error-checking capabilities, ensuring your operations remain efficient and accurate.
+          </p>
+        </div>
+      </article>
     </main>
 
     <footer class="app-footer">
