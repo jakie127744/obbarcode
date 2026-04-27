@@ -418,10 +418,12 @@
     }
   }
 
-    darkAdsEl.addEventListener("change", () => {
-      localStorage.setItem("obDarkAds", String(darkAdsEl.checked));
-      applyAdThemePreference();
-    });
+    if (darkAdsEl) {
+      darkAdsEl.addEventListener("change", () => {
+        localStorage.setItem("obDarkAds", String(darkAdsEl.checked));
+        applyAdThemePreference();
+      });
+    }
 
   function setStatus(message, type = "success") {
     statusEl.textContent = message;
@@ -1332,13 +1334,19 @@
     ].filter(Boolean);
 
     const consentChoice = localStorage.getItem("obConsentChoice");
+    window.adsbygoogle = window.adsbygoogle || [];
     if (consentChoice === "reject") {
-      window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.requestNonPersonalizedAds = 1;
-    } else {
-      window.adsbygoogle = window.adsbygoogle || [];
+      if (typeof gtag === "function") {
+        gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+      }
+    } else if (consentChoice === "accept") {
       window.adsbygoogle.requestNonPersonalizedAds = 0;
+      if (typeof gtag === "function") {
+        gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
+      }
     }
+    // If no choice yet, Consent Mode v2 defaults (set in <head>) remain denied
 
     const evaluateAdSlots = () => {
       adSlots.forEach((slot) => {
@@ -1634,16 +1642,22 @@
       localStorage.setItem("obConsentChoice", "accept");
       window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.requestNonPersonalizedAds = 0;
+      if (typeof gtag === "function") {
+        gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
+      }
       consentBanner.classList.add("hidden");
-      setStatus("Consent saved: personalized ads allowed. Refresh page to apply ad mode.");
+      setStatus("Consent saved: personalized ads enabled.");
     });
 
     consentReject.addEventListener("click", () => {
       localStorage.setItem("obConsentChoice", "reject");
       window.adsbygoogle = window.adsbygoogle || [];
       window.adsbygoogle.requestNonPersonalizedAds = 1;
+      if (typeof gtag === "function") {
+        gtag("consent", "update", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+      }
       consentBanner.classList.add("hidden");
-      setStatus("Consent saved: non-personalized ads enabled. Refresh page to apply ad mode.");
+      setStatus("Consent saved: non-personalized ads enabled.");
     });
   }
 

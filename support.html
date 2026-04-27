@@ -11,20 +11,20 @@
             }
         })();
     </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Support | OB Barcode Generator</title>
+    <meta name="description" content="OB Barcode Generator support center. Troubleshoot scanning issues, learn CSV batch formatting, understand barcode symbologies, and resolve common print quality problems." />
+    <title>Support Center | OB Barcode Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" />
     <style>
         .page-content {
-            max-width: 800px;
-            margin: 4rem auto;
+            max-width: 860px;
+            margin: 3rem auto;
             padding: 2.5rem;
-            line-height: 1.7;
+            line-height: 1.75;
         }
         .privacy-nav {
             display: flex;
@@ -59,60 +59,198 @@
             transform: translateX(-4px);
         }
         h2 {
-            margin-top: 2rem;
-            font-size: 1.25rem;
+            margin-top: 2.25rem;
+            font-size: 1.3rem;
             color: var(--ink);
             border-left: 4px solid var(--primary);
             padding-left: 12px;
         }
-        p, ul, li { margin-bottom: 1rem; color: var(--muted); }
+        h3 {
+            margin-top: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+        p { margin-bottom: 1rem; color: var(--muted); }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--muted); }
+        li { margin-bottom: 0.5rem; }
+        code {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--primary);
+        }
+        .highlight-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        .tip-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-left: 4px solid #22c55e;
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin: 1.25rem 0;
+        }
+        .tip-box strong { color: #22c55e; }
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+        }
+        .faq-item summary {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--ink);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item summary::after {
+            content: '+';
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        .faq-item[open] summary::after { content: '−'; }
+        .faq-item p, .faq-item ul { padding: 0 1.25rem 1rem; margin: 0; }
+        .faq-item ul { padding-left: 2.5rem; }
         .footer-note {
             margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border);
             font-size: 0.9rem;
             text-align: center;
+            color: var(--muted);
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const isDark = document.documentElement.classList.contains('dark');
-            if (isDark) {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-            }
+            if (isDark) { document.body.classList.add('dark'); }
+            else { document.body.classList.remove('dark'); }
         });
     </script>
 </head>
 <body class="dashboard">
     <main class="page-content card">
         <nav class="privacy-nav">
-            <h1>Support</h1>
-            <a href="index.html" class="back-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Generator</a>
+            <h1>Support Center</h1>
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Generator
+            </a>
         </nav>
-                <section>
-            <p>Need assistance with barcode formatting or print settings? Explore our support guide below.</p>
 
-            <h2>Scanning Issues</h2>
-            <p>If your barcodes aren''t scanning, check the following:</p>
+        <section>
+            <p>Welcome to the OB Barcode Generator support center. Below you will find comprehensive guides on troubleshooting scan failures, formatting batch CSV files, understanding print settings, and choosing the right barcode symbology for your use case.</p>
+
+            <h2>1. Barcode Scanning Issues</h2>
+            <p>If your generated barcodes are not being read by a scanner or phone camera, work through the following checklist systematically:</p>
+
+            <h3>Quiet Zone (Margins)</h3>
+            <p>Every barcode standard mandates a "quiet zone" — a clear, blank border area around the barcode with no other marks. Without adequate quiet zones, scanners cannot locate the start and stop boundaries of the code. As a general rule:</p>
             <ul>
-                <li><strong>Quiet Zone:</strong> Ensure there is enough white space around the barcode.</li>
-                <li><strong>Contrast:</strong> Always print black bars on a white background.</li>
-                <li><strong>Scale:</strong> If the barcode is too small, it may exceed the DPI limits of your scanner. Use the "Scale" setting to increase width.</li>
+                <li>Linear barcodes (Code 128, EAN-13) require a quiet zone of at least <strong>10× the narrowest bar width</strong> on the left and right sides.</li>
+                <li>QR Codes require a quiet zone of at least <strong>4 modules</strong> (cells) on all four sides.</li>
+            </ul>
+            <p>In the generator, increase the <strong>Margin</strong> value under Display Settings to add more quiet zone area before exporting.</p>
+
+            <h3>Contrast and Print Quality</h3>
+            <p>Scanners work by detecting the light-to-dark transitions between bars and spaces. Poor contrast is one of the most common causes of scan failure:</p>
+            <ul>
+                <li>Always use <strong>black bars on a white background</strong> for maximum contrast when in doubt. Avoid using dark colors on dark backgrounds.</li>
+                <li>If printing on colored labels, test contrast against a matte background. Glossy surfaces can introduce reflective glare that confuses laser scanners.</li>
+                <li>Inkjet-printed barcodes on absorbent paper can exhibit ink bleeding (bar spread), causing bars to merge. Use a laser printer or a specialty barcode printer for production labels.</li>
             </ul>
 
-            <h2>Batch CSV Printing</h2>
-            <p>For batch generation, ensure your CSV follows the header format: <code>format,data</code> (e.g., <code>QR,https://molave.io</code>). Use the provided "Template" button in the Batch section for a sample file.</p>
+            <h3>Scale and Physical Size</h3>
+            <p>A barcode that is too small will exceed the resolution limits of your scanner's optical sensor. The minimum recommended physical widths are:</p>
+            <ul>
+                <li><strong>Code 128:</strong> At least 20mm (0.8 inches) wide for reliable scanning.</li>
+                <li><strong>EAN-13 / UPC-A:</strong> The GS1 standard specifies a nominal size of 37.29 × 26.26 mm. Do not print below 80% of this size.</li>
+                <li><strong>QR Code:</strong> At a minimum of 2.5 cm × 2.5 cm for most smartphone cameras at normal distances.</li>
+            </ul>
+            <p>Use the <strong>Scale / Width</strong> and <strong>Height</strong> settings to increase barcode dimensions before downloading your SVG or PNG.</p>
+
+            <div class="tip-box"><strong>Tip:</strong> Always test your generated barcode on multiple scanner types (laser gun, CCD scanner, and smartphone camera) before deploying in a production print run.</div>
+
+            <h2>2. Batch CSV Generation</h2>
+            <p>The batch label feature allows you to generate multiple barcodes from a structured CSV file. This is ideal for creating label sheets for product inventory, shipping manifests, or event tickets.</p>
+
+            <h3>Required CSV Format</h3>
+            <p>Your CSV must include a <strong>header row</strong> with the following columns:</p>
+            <p><code>format,data</code></p>
+            <p>Each subsequent row defines one barcode. Example file content:</p>
+            <pre style="background:var(--panel-soft);padding:1rem;border-radius:8px;font-size:0.85rem;overflow-x:auto;border:1px solid var(--border);"><code>format,data
+QR,https://example.com
+CODE128,ITEM-00123
+EAN13,5901234123457
+UPCA,012345678905
+CODE39,ORDER-A9</code></pre>
+
+            <h3>Supported Format Values</h3>
+            <ul>
+                <li><code>QR</code> — QR Code (any text or URL)</li>
+                <li><code>CODE128</code> — Code 128 (alphanumeric, full ASCII)</li>
+                <li><code>CODE39</code> — Code 39 (uppercase alphanumeric + limited symbols)</li>
+                <li><code>EAN13</code> — EAN-13 (exactly 12 or 13 numeric digits)</li>
+                <li><code>UPCA</code> — UPC-A (exactly 11 or 12 numeric digits)</li>
+            </ul>
+
+            <h3>Printing Tips</h3>
+            <p>After clicking <strong>Generate Sheet</strong>, a printable label layout will appear. Use your browser's built-in Print dialog (<kbd>Ctrl+P</kbd> / <kbd>Cmd+P</kbd>) to print. Set margins to "None" or "Minimum" in the print dialog for best results. The label dimensions (width/height in mm) can be adjusted using the W/H inputs in the Batch Labels card.</p>
+
+            <h2>3. Export Formats Explained</h2>
+            <p>OB Barcode Generator offers two export options for all generated barcodes:</p>
+            <ul>
+                <li><strong>PNG (Download PNG):</strong> A rasterized image at screen resolution. Best for embedding in documents, emails, or presentations where vector support is unavailable. Not ideal for scaling up to large label sizes, as pixel interpolation will reduce sharpness.</li>
+                <li><strong>SVG (Download SVG):</strong> A lossless vector format. SVGs can be scaled to any print size — including industrial label printers — without any loss of sharpness or quality. This is the recommended format for production printing. SVG files can be opened in Illustrator, Inkscape, or imported directly into label design software.</li>
+            </ul>
+
+            <h2>Frequently Asked Questions</h2>
+
+            <details class="faq-item">
+                <summary>Why is my EAN-13 barcode not generating?</summary>
+                <p>EAN-13 requires exactly 13 numeric digits (or 12 digits — the 13th check digit is calculated automatically). If you enter letters, spaces, or the wrong digit count, generation will fail. Double-check that your GS1 company prefix and product code are correct and add up to 12 or 13 digits.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Can I use OB Barcode Generator offline?</summary>
+                <p>Yes. OB Barcode Generator is a Progressive Web App (PWA). After your first visit, the browser service worker caches the app. You can install it to your home screen or desktop and use all generation features — single barcode, batch CSV, and downloads — without an internet connection.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>What is the maximum data capacity for a QR Code?</summary>
+                <p>QR Code capacity varies by error correction level and data type. At the lowest error correction (Level L), a single QR Code can encode up to 7,089 numeric characters, 4,296 alphanumeric characters, or 2,953 bytes of binary data. Higher error correction reduces capacity but improves resilience to damage. For URLs, the recommended error correction level is M (15%).</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>Is my barcode data stored or uploaded anywhere?</summary>
+                <p>No. All barcode generation is performed entirely within your browser using JavaScript. The data you enter into the Code Content field — whether it is a tracking URL, product ID, or contact card — never leaves your device or is transmitted to any server.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>How do I save my generator settings for repeated use?</summary>
+                <p>Use the <strong>Pro Workflow</strong> section on the dashboard. Enter a name for your configuration in the "Preset Name" field and click Save. Your format, colors, scale, and other display settings are saved to browser Local Storage. You can load them later from the "Load Saved" dropdown, even after closing and returning to the app.</p>
+            </details>
 
             <h2>Contact</h2>
-            <p>For technical inquiries or feature requests, contact the development team at Molave Labs or visit <a href="https://chessbotbuddies.org">chessbotbuddies.org</a>.</p>
+            <p>For technical inquiries, feature requests, or business partnership questions, you may reach the development team at <strong>Molave Labs</strong>. We are an independent studio and respond to all genuine support requests on a best-effort basis. You can also explore our other tools at <a href="https://precision-calc.com/" target="_blank" rel="noopener">PrecisionCalc</a>.</p>
         </section>
+
         <div class="footer-note">
-            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+            <p>&copy; 2026 Molave Labs. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color:var(--primary);">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:var(--primary);">Terms of Use</a></p>
         </div>
     </main>
-    <script src="app.js"></script>
-    
+    <script src="app.js" defer></script>
 </body>
 </html>

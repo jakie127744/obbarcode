@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Generate free barcodes online: QR Code, Code 128, EAN-13, and more. Export PNG/SVG, batch-generate labels from CSV." />
@@ -17,8 +16,20 @@
     <script src="vendor/qrcode-generator.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
     <script src="app.js" defer></script>
+    <!-- Google Consent Mode v2 — MUST run before AdSense script loads -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500
+      });
+    </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9907028021598445" crossorigin="anonymous"></script>
-        <script type="application/ld+json">
+    <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "FAQPage",
@@ -28,7 +39,7 @@
           "name": "What is a Code 128 barcode?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Code 128 is a high-density linear barcode format widely used for logistics, inventory, and internal tracking labels."
+            "text": "Code 128 is a high-density linear barcode that encodes all 128 ASCII characters — letters, digits, and symbols. It is the global standard for shipping labels and warehouse management systems, offering the highest data density of any linear symbology. In numeric-only mode (Code C sub-set), it doubles capacity by encoding two digits per bar module, making it the most efficient linear format for numeric tracking identifiers."
           }
         },
         {
@@ -36,15 +47,15 @@
           "name": "How much data can a Code 128 barcode hold?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Code 128 can hold full ASCII data and is efficient for alphanumeric identifiers."
+            "text": "Code 128 supports variable-length data and encodes the full 128-character ASCII set with no fixed upper character limit. In practice, very long strings reduce scanning reliability on lower-end cameras. For numeric-only data, the Code C compression sub-set encodes two digits per symbol, effectively doubling capacity versus other linear barcode formats. It outperforms Code 39 for alphanumeric data density."
           }
         },
         {
           "@type": "Question",
-          "name": "How to generate multiple barcodes?",
+          "name": "How do I generate multiple barcodes at once?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Use the Batch CSV and Label Sheet section to upload data and generate a printable sheet."
+            "text": "Use the Batch Labels section on the dashboard. Upload a CSV file or paste rows in the format 'format,data' — for example: CODE128,ITEM-00123 or QR,https://example.com. After clicking Generate Sheet, a print-ready label layout appears. Set label width and height in millimeters using the W and H fields, then print directly from the browser or download all labels as a ZIP archive of individual PNG files."
           }
         }
       ]
@@ -52,6 +63,8 @@
     </script>
   </head>
   <body class="dark">
+    <!-- Flash-free theme: corrects dark default for light-mode users before first paint -->
+    <script>(function(){var t=localStorage.getItem('obThemeMode');if(t==='light'){document.body.className='';}})();</script>
     <header class="app-header">
       <div class="header-content container">
         <div class="brand">
@@ -189,7 +202,7 @@
             </details>
             <details class="faq-item">
               <summary>How to generate multiple barcodes at once?</summary>
-              <p>Use the **Batch Labels** section in the middle column. Upload a CSV file or paste your data, then click 'Generate Sheet' to arrange them for printing.</p>
+              <p>Use the <strong>Batch Labels</strong> section in the middle column. Upload a CSV file or paste your data, then click 'Generate Sheet' to arrange them for printing.</p>
             </details>
             <details class="faq-item">
               <summary>Can I generate barcodes programmatically?</summary>
@@ -199,6 +212,7 @@
               <summary>Need additional help?</summary>
               <p>Visit our <a href="support.html">Support page</a> for detailed troubleshooting and setup guidance.</p>
             </details>
+          </section>
         </div>
         <!-- COLUMN 2: Live View & Batch -->
         <div class="dashboard-col">
@@ -251,8 +265,10 @@
 
         <!-- COLUMN 3: Info & Ads -->
         <div class="dashboard-col">
-          <section class="card ad-sidebar">
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9907028021598445" data-ad-slot="3889176136" data-ad-format="auto" data-full-width-responsive="true"></ins>
+          <section class="card ad-sidebar" aria-label="Advertisement">
+            <div class="guarded-ad" data-slot-id="3889176136">
+              <ins class="adsbygoogle" style="display:block; min-height:250px;" data-ad-client="ca-pub-9907028021598445" data-ad-slot="3889176136" data-ad-format="auto" data-full-width-responsive="true"></ins>
+            </div>
           </section>
 
           <a href="https://chessbotbuddies.org" target="_blank" class="card promo-card-v2">
@@ -279,21 +295,22 @@
           <section class="card info-card">
             <h4>Pro Scan Tips</h4>
             <ul>
-              <li>High contrast (black/white) is best.</li>
-              <li>Keep a clear "quiet zone" around codes.</li>
-              <li>Test scans on multiple device types.</li>
+              <li><strong>High contrast:</strong> Black bars on a white background ensure reliable reads across laser guns, CCD scanners, and smartphone cameras.</li>
+              <li><strong>Quiet zone:</strong> Maintain a clear margin — at least 10× the narrowest bar width for linear codes; 4 modules on all sides for QR Codes.</li>
+              <li><strong>Minimum size:</strong> Print Code 128 at least 20 mm wide; QR Codes at least 25 × 25 mm for reliable smartphone scanning.</li>
+              <li><strong>Test before printing:</strong> Always verify scans on multiple device types before committing to a full print run.</li>
             </ul>
           </section>
 
           <section class="card info-card legal-sm">
-            <p><strong>Privacy:</strong> No browser data is stored/uploaded.</p>
-            <p><strong>Ads:</strong> Non-intrusive placeholders. No pop-ups.</p>
+            <p><strong>Privacy:</strong> All barcode generation runs locally in your browser. No data is uploaded to any server.</p>
+            <p><strong>Advertising:</strong> Ad revenue helps keep this tool free and maintained for everyone.</p>
             <p><strong>Credits:</strong> Engineered by Molave Labs.</p>
           </section>
         </div>
-        <section class="card dashboard-multiplex-ad">
-          <div class="ad-placeholder guarded-ad">
-            <ins class="adsbygoogle" style="display:block" data-ad-format="autorelaxed" data-ad-client="ca-pub-9907028021598445" data-ad-slot="5083799737"></ins>
+        <section class="card dashboard-multiplex-ad" aria-label="Advertisement">
+          <div class="guarded-ad" data-slot-id="5083799737">
+            <ins class="adsbygoogle" style="display:block; min-height:100px;" data-ad-format="autorelaxed" data-ad-client="ca-pub-9907028021598445" data-ad-slot="5083799737"></ins>
           </div>
         </section>
 
@@ -318,25 +335,44 @@
       </div>
 
       <article class="card publisher-content" style="margin-top: 2rem;">
-        <div style="max-width: 800px;">
+        <div style="max-width: 860px;">
           <h2>About OB Barcode Generator</h2>
-          <p style="margin-top: 1rem; color: var(--muted); line-height: 1.6;">
-            OB Barcode Generator is a robust, professional-grade utility designed for generating high-quality vector and raster barcodes. 
-            Developed by <strong>Molave Labs</strong>, this tool provides developers, warehouse managers, and small business owners with a powerful platform 
-            to generate custom tracking labels securely, ensuring maximum data privacy through local processing.
+          <p style="margin-top: 1rem; color: var(--muted); line-height: 1.7;">
+            OB Barcode Generator is a robust, professional-grade utility designed for generating high-quality vector and raster barcodes entirely within your browser.
+            Developed by <strong>Molave Labs</strong>, this tool provides developers, warehouse managers, retailers, and small business owners with a powerful platform
+            to create custom tracking labels securely — your sensitive data never leaves your device.
           </p>
-          
+
+          <h3 style="margin-top: 2rem;">How It Works — Step by Step</h3>
+          <p style="margin-top: 0.75rem; color: var(--muted); line-height: 1.7;">Generating a production-ready barcode takes less than 30 seconds:</p>
+          <ol style="margin-top: 0.5rem; color: var(--muted); line-height: 1.7; padding-left: 1.5rem;">
+            <li style="margin-bottom: 0.75rem;"><strong>Select a Format:</strong> Choose from QR Code, Code 128, Code 39, EAN-13, or UPC-A in the Format dropdown. Each symbology is optimized for different scanning environments and data payloads.</li>
+            <li style="margin-bottom: 0.75rem;"><strong>Enter Your Data:</strong> Type or paste the value to encode — a URL, product SKU, tracking number, or any text string. The generator will validate your input in real time, flagging any format-specific length or character errors.</li>
+            <li style="margin-bottom: 0.75rem;"><strong>Customize Appearance:</strong> Expand Display Settings to adjust line color, background color, bar height, scale, and quiet zone margins. These settings let you match your brand or satisfy printing specifications.</li>
+            <li style="margin-bottom: 0.75rem;"><strong>Preview Instantly:</strong> The Live Preview updates automatically as you type. You can verify the visual output before committing to a download.</li>
+            <li style="margin-bottom: 0.75rem;"><strong>Download or Copy:</strong> Export a lossless SVG vector (recommended for label printing) or a standard PNG. You can also copy the SVG markup directly to the clipboard for use in design tools.</li>
+            <li style="margin-bottom: 0.75rem;"><strong>Batch Generate:</strong> For large volumes, use the Batch Labels section. Upload a CSV file or paste rows manually, configure label dimensions, and generate a print-ready sheet in one click.</li>
+          </ol>
+
           <h3 style="margin-top: 2rem;">Why Choose Our Generator?</h3>
-          <ul style="margin-top: 1rem; color: var(--muted); line-height: 1.6; padding-left: 1.5rem;">
-            <li style="margin-bottom: 0.5rem;"><strong>Complete Privacy:</strong> All barcode generation is performed client-side on your device. Your sensitive inventory identifiers and tracking URLs never leave your browser.</li>
-            <li style="margin-bottom: 0.5rem;"><strong>Extensive Symbologies:</strong> From standard QR Codes for web links to high-density <strong>Code 128</strong> and retail-standard <strong>EAN-13</strong> or <strong>UPC-A</strong>, we cover all business needs.</li>
-            <li style="margin-bottom: 0.5rem;"><strong>Batch Processing:</strong> Seamlessly generate hundreds of barcodes at once using bulk CSV uploads. Perfect for creating ready-to-print label sheets for shipping and logistics.</li>
-            <li style="margin-bottom: 0.5rem;"><strong>High-Resolution Exports:</strong> Download crisp SVG vectors for lossless scaling on industrial printers, or standard PNGs for quick sharing across teams.</li>
+          <ul style="margin-top: 0.75rem; color: var(--muted); line-height: 1.7; padding-left: 1.5rem;">
+            <li style="margin-bottom: 0.5rem;"><strong>Complete Privacy:</strong> All barcode generation runs client-side. Your inventory identifiers, tracking URLs, and contact data never leave your browser for rendering.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Extensive Symbologies:</strong> From QR Codes for web links to high-density <strong>Code 128</strong> and retail-standard <strong>EAN-13</strong> and <strong>UPC-A</strong>, all major business needs are covered.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Batch Processing:</strong> Generate hundreds of barcodes from a single CSV upload. Perfect for shipping manifests, inventory sheets, and event ticketing.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>High-Resolution SVG Exports:</strong> Vector outputs scale to any print size — from desktop laser printers to industrial label printers — without pixelation.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Offline PWA:</strong> Install the app to your device. After the first load, the entire generator works without an internet connection.</li>
+            <li style="margin-bottom: 0.5rem;"><strong>Saved Presets:</strong> Save your frequently used configurations (format, colors, scale) as named presets for one-click reuse across sessions.</li>
           </ul>
 
-          <h3 style="margin-top: 2rem;">Understanding Barcode Formats</h3>
-          <p style="margin-top: 1rem; color: var(--muted); line-height: 1.6;">
-            Choosing the appropriate symbology is vital for scanning reliability. <strong>QR Codes</strong> are excellent for embedding extensive alphanumeric data such as websites or contact cards. For product retail environments, <strong>UPC-A</strong> and <strong>EAN-13</strong> are the global standards. If you require alphanumeric internal tracking for warehouses, <strong>Code 128</strong> provides unmatched data density and error-checking capabilities, ensuring your operations remain efficient and accurate.
+          <h3 style="margin-top: 2rem;">Understanding Barcode Symbologies</h3>
+          <p style="margin-top: 0.75rem; color: var(--muted); line-height: 1.7;">
+            Choosing the correct barcode format is critical for scanner compatibility in your environment. <strong>QR Codes</strong> are the most versatile, capable of encoding URLs, plain text, Wi-Fi credentials, and contact cards, with built-in error correction that allows them to remain scannable even when partially obscured. For internal warehouse operations, <strong>Code 128</strong> is the gold standard — it encodes all 128 ASCII characters at maximum linear density and is the format used on virtually all modern shipping labels worldwide.
+          </p>
+          <p style="color: var(--muted); line-height: 1.7;">
+            Retail products sold internationally use <strong>EAN-13</strong> (the European Article Number standard), while North American point-of-sale systems typically require <strong>UPC-A</strong>. Both formats encode a manufacturer prefix and product code issued by the GS1 organization. <strong>Code 39</strong> is a legacy format with limited character support, still found in military, automotive, and industrial environments that have not yet migrated to Code 128.
+          </p>
+          <p style="color: var(--muted); line-height: 1.7;">
+            For detailed guidance on resolving scanning problems, formatting batch CSV files, or understanding export options, visit our comprehensive <a href="support.html" style="color: var(--primary);">Support Center</a>. To learn more about Molave Labs and our suite of tools, visit the <a href="about.html" style="color: var(--primary);">About page</a>.
           </p>
         </div>
       </article>
@@ -368,12 +404,6 @@
     <div id="toast" class="toast hidden" role="status" aria-live="polite" aria-atomic="true"></div>
   </body>
 </html>
-
-
-
-
-
-
 
 
 

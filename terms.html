@@ -11,9 +11,9 @@
             }
         })();
     </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Terms of Use for OB Barcode Generator by Molave Labs. Understand your rights and responsibilities when using our free browser-based barcode generation service." />
     <title>Terms of Use | OB Barcode Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,10 +21,10 @@
     <link rel="stylesheet" href="styles.css" />
     <style>
         .page-content {
-            max-width: 800px;
-            margin: 4rem auto;
+            max-width: 860px;
+            margin: 3rem auto;
             padding: 2.5rem;
-            line-height: 1.7;
+            line-height: 1.75;
         }
         .privacy-nav {
             display: flex;
@@ -59,29 +59,38 @@
             transform: translateX(-4px);
         }
         h2 {
-            margin-top: 2rem;
-            font-size: 1.25rem;
+            margin-top: 2.25rem;
+            font-size: 1.3rem;
             color: var(--ink);
             border-left: 4px solid var(--primary);
             padding-left: 12px;
         }
-        p, ul, li { margin-bottom: 1rem; color: var(--muted); }
+        h3 { margin-top: 1.5rem; font-size: 1.05rem; color: var(--ink); }
+        p { margin-bottom: 1rem; color: var(--muted); }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--muted); }
+        li { margin-bottom: 0.5rem; }
+        .highlight-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
         .footer-note {
             margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border);
             font-size: 0.9rem;
             text-align: center;
+            color: var(--muted);
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const isDark = document.documentElement.classList.contains('dark');
-            if (isDark) {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-            }
+            if (isDark) { document.body.classList.add('dark'); }
+            else { document.body.classList.remove('dark'); }
         });
     </script>
 </head>
@@ -89,29 +98,75 @@
     <main class="page-content card">
         <nav class="privacy-nav">
             <h1>Terms of Use</h1>
-            <a href="index.html" class="back-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Generator</a>
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Generator
+            </a>
         </nav>
-                <p class="subtitle">Last updated: April 13, 2026</p>
+
+        <p class="subtitle">Last updated: April 13, 2026</p>
+
         <section>
-            <p>Welcome to OB Barcode Generator. By using our services, you agree to the following terms. Please read them carefully.</p>
-            
-            <h2>1. Service Scope</h2>
-            <p>OB Barcode Generator is a provider of browser-based utilities for generating linear and matrix barcodes (such as Code 128, QR Codes, and EAN-13). The service is provided "as is" without warranty of any kind, either expressed or implied.</p>
+            <p>Welcome to OB Barcode Generator, a free browser-based barcode generation service provided by <strong>Molave Labs</strong>. By accessing or using this application, you agree to be bound by the following Terms of Use. Please read them carefully before proceeding.</p>
 
-            <h2>2. User Responsibility</h2>
-            <p>You are solely responsible for the content you encode into generated barcodes. You must ensure that your data is accurate and compliant with the standards of your specific industry (e.g., GS1 for retail barcodes). We are not responsible for inventory losses, shipping delays, or scanning failures resulting from incorrect data input or print quality issues.</p>
+            <div class="highlight-box">
+            <strong>Plain Language Summary:</strong> This is a free tool. Use it for legal purposes only. We are not responsible for errors in data you encode, and we do not store your information. Advertising helps keep the service free for everyone.
+            </div>
 
-            <h2>3. Acceptable Use</h2>
-            <p>You agree not to use this tool for any illegal, deceptive, or malicious activity. This includes but is not limited to: generating fraudulent shipping labels, spoofing product identifiers, or attempting to exploit scanning vulnerabilities.</p>
+            <h2>1. Service Scope and Nature</h2>
+            <p>OB Barcode Generator provides browser-based utilities for generating linear and matrix barcodes, including but not limited to Code 128, QR Codes, EAN-13, UPC-A, and Code 39. The service is designed for use by businesses, developers, logistics professionals, and individuals who need to create machine-readable codes for inventory management, product labeling, shipping, event ticketing, and related applications.</p>
+            <p>The service is provided on a best-effort basis and is offered free of charge, supported by display advertising. Molave Labs reserves the right to modify, suspend, or discontinue any part of the service at any time without prior notice.</p>
+
+            <h2>2. User Responsibilities and Acceptable Use</h2>
+            <p>By using OB Barcode Generator, you agree to the following conditions of acceptable use:</p>
+            <ul>
+                <li><strong>Accuracy of Data:</strong> You are solely responsible for ensuring that the data you encode into barcodes is accurate, complete, and compliant with the standards applicable to your industry (for example, GS1 standards for EAN-13 and UPC-A in retail environments).</li>
+                <li><strong>Legal Compliance:</strong> You agree not to use this tool to generate barcodes for any illegal, deceptive, or malicious purpose. This includes, without limitation: creating fraudulent shipping labels, counterfeiting product identifiers, generating spoofed medical device codes, or facilitating any form of fraud.</li>
+                <li><strong>GS1 Numbers:</strong> EAN-13 and UPC-A barcode numbers are governed by the GS1 organization. You should only encode GS1 company prefix numbers that your organization has legally licensed. Using unauthorized GS1 numbers on commercial products may constitute trademark infringement or fraud under applicable law.</li>
+                <li><strong>No Automated Abuse:</strong> You agree not to use automated scripts, bots, or other means to access or scrape this application in a manner that places an unreasonable load on the service infrastructure.</li>
+            </ul>
+
+            <h2>3. Intellectual Property</h2>
+            <p>The OB Barcode Generator application, its user interface design, branding elements, and original content are the intellectual property of Molave Labs and are protected by applicable copyright and trademark law. You may not reproduce, redistribute, or create derivative works based on this application's design or code without prior written consent.</p>
+            <p>The barcode images you generate using this tool are yours. You retain all rights to the output files (SVG and PNG exports) that you produce. Molave Labs claims no ownership over the barcodes you create.</p>
+            <p>OB Barcode Generator uses the following open-source libraries, each governed by their respective licenses:</p>
+            <ul>
+                <li><strong>JsBarcode</strong> — MIT License. Used for generating Code 128, Code 39, EAN-13, and UPC-A barcodes.</li>
+                <li><strong>qrcode-generator</strong> — MIT License. Used for generating QR Code matrix barcodes.</li>
+                <li><strong>JSZip</strong> — MIT License. Used for compressing batch barcode downloads into ZIP archives.</li>
+            </ul>
 
             <h2>4. Limitation of Liability</h2>
-            <p>Molave Labs and its engineers shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use or inability to use the generator. This includes failures in ad delivery, service downtime, or browser compatibility issues.</p>
+            <p>To the fullest extent permitted by applicable law, Molave Labs and its contributors shall not be liable for any direct, indirect, incidental, special, exemplary, or consequential damages arising out of or in connection with your use of the service. This includes, but is not limited to:</p>
+            <ul>
+                <li>Inventory losses, shipping delays, or product recalls caused by incorrectly generated or encoded barcodes.</li>
+                <li>Scanning failures due to print quality, substrate choice, or environmental factors outside our control.</li>
+                <li>Data loss resulting from browser crashes, cache clearing, or local storage limitations.</li>
+                <li>Service downtime, ad delivery failures, or disruptions caused by third-party CDN or API providers.</li>
+            </ul>
+            <p>The service is provided "as is" and "as available," without any warranty of fitness for a particular purpose or merchantability. It is your responsibility to test all generated barcodes before deploying them in a production environment.</p>
+
+            <h2>5. Third-Party Services and Advertising</h2>
+            <p>OB Barcode Generator displays advertisements served by <strong>Google AdSense</strong>. We have no control over the content of individual ads displayed, and we are not responsible for the goods, services, or representations made by third-party advertisers.</p>
+            <p>The application also features sponsored promotional cards that may link to third-party websites. These links are provided for convenience and do not constitute an endorsement. Molave Labs is not responsible for the content, policies, or practices of any third-party linked sites.</p>
+
+            <h2>6. Privacy and Data</h2>
+            <p>All barcode data you enter into this application is processed locally in your browser and is never transmitted to Molave Labs servers. The generator does not collect, store, or share your barcode content. For a complete explanation of what data we may collect (such as analytics and advertising cookies), please review our <a href="privacy.html">Privacy Policy</a>.</p>
+
+            <h2>7. Changes to These Terms</h2>
+            <p>Molave Labs reserves the right to update these Terms of Use at any time. Changes will be reflected by updating the "Last Updated" date at the top of this page. Continued use of the service after any modification constitutes your acceptance of the updated terms. We encourage you to review this page periodically.</p>
+
+            <h2>8. Governing Law</h2>
+            <p>These Terms of Use are governed by and construed in accordance with applicable law. If any provision of these terms is found to be unenforceable, the remaining provisions will remain in full force and effect.</p>
+
+            <h2>9. Contact</h2>
+            <p>If you have questions regarding these terms or believe the service is being misused, please contact the Molave Labs development team via our <a href="support.html">Support page</a>.</p>
         </section>
+
         <div class="footer-note">
-            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+            <p>&copy; 2026 Molave Labs. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color:var(--primary);">Privacy Policy</a> &nbsp;|&nbsp; <a href="about.html" style="color:var(--primary);">About Us</a></p>
         </div>
     </main>
-    <script src="app.js"></script>
-    
+    <script src="app.js" defer></script>
 </body>
 </html>

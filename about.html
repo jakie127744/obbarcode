@@ -11,9 +11,9 @@
             }
         })();
     </script>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Learn about OB Barcode Generator — a free, privacy-first barcode tool by Molave Labs. Supports QR Code, Code 128, EAN-13, UPC-A and more." />
     <title>About Us | OB Barcode Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,10 +21,10 @@
     <link rel="stylesheet" href="styles.css" />
     <style>
         .page-content {
-            max-width: 800px;
-            margin: 4rem auto;
+            max-width: 860px;
+            margin: 3rem auto;
             padding: 2.5rem;
-            line-height: 1.7;
+            line-height: 1.75;
         }
         .privacy-nav {
             display: flex;
@@ -59,29 +59,64 @@
             transform: translateX(-4px);
         }
         h2 {
-            margin-top: 2rem;
-            font-size: 1.25rem;
+            margin-top: 2.25rem;
+            font-size: 1.3rem;
             color: var(--ink);
             border-left: 4px solid var(--primary);
             padding-left: 12px;
         }
-        p, ul, li { margin-bottom: 1rem; color: var(--muted); }
+        h3 {
+            margin-top: 1.5rem;
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+        p { margin-bottom: 1rem; color: var(--muted); }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--muted); }
+        li { margin-bottom: 0.5rem; }
+        .highlight-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 1.25rem 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .stat-box {
+            background: var(--panel-soft);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+        }
+        .stat-box strong {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--primary);
+        }
+        .stat-box span {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
         .footer-note {
             margin-top: 4rem;
             padding-top: 2rem;
             border-top: 1px solid var(--border);
             font-size: 0.9rem;
             text-align: center;
+            color: var(--muted);
         }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const isDark = document.documentElement.classList.contains('dark');
-            if (isDark) {
-                document.body.classList.add('dark');
-            } else {
-                document.body.classList.remove('dark');
-            }
+            if (isDark) { document.body.classList.add('dark'); }
+            else { document.body.classList.remove('dark'); }
         });
     </script>
 </head>
@@ -89,28 +124,69 @@
     <main class="page-content card">
         <nav class="privacy-nav">
             <h1>About Us</h1>
-            <a href="index.html" class="back-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> Back to Generator</a>
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Generator
+            </a>
         </nav>
-                <section>
-            <p>OB Barcode Generator is a high-performance, client-side tool engineered by <strong>Molave Labs</strong>. We focus on bridge-building utilities that help businesses, warehouses, and developers manage physical assets with digital precision.</p>
+
+        <section>
+            <p>OB Barcode Generator is a free, professional-grade, client-side tool engineered by <strong>Molave Labs</strong>. We build precision utilities that help businesses, warehouse operators, retailers, and developers manage physical and digital assets with accuracy and speed — all without sacrificing user privacy.</p>
+
+            <div class="highlight-box">
+                <strong>Our Core Belief:</strong> Generating a barcode should not require you to upload your sensitive inventory data to a remote server. All processing in OB Barcode Generator happens locally in your browser, by design.
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-box"><strong>5+</strong><span>Barcode formats supported</span></div>
+                <div class="stat-box"><strong>100%</strong><span>Client-side processing</span></div>
+                <div class="stat-box"><strong>CSV</strong><span>Bulk batch label support</span></div>
+                <div class="stat-box"><strong>SVG + PNG</strong><span>High-resolution exports</span></div>
+            </div>
 
             <h2>Our Mission</h2>
-            <p>Our goal is to eliminate the unnecessary complexity often associated with professional barcode generation. By processing all data locally in the browser, we provide a secure, fast, and free alternative to expensive desktop software.</p>
+            <p>The goal of OB Barcode Generator is to eliminate the unnecessary complexity and cost historically associated with professional barcode generation. Traditional desktop barcode software can cost hundreds of dollars per seat, requires installation, and often lacks modern browser-based accessibility. We believe this tooling should be free, fast, and universally available.</p>
+            <p>By running all logic directly in the browser using JavaScript, we deliver instant results without server round trips. This means no waiting, no rate limits, and no account creation — just open the app and generate.</p>
 
-            <h2>Engineering Standards</h2>
+            <h2>What We Support</h2>
+            <p>OB Barcode Generator supports the most widely-used barcode symbologies in modern logistics, retail, and inventory management:</p>
             <ul>
-                <li><strong>Privacy First:</strong> No data leaves your machine during generation.</li>
-                <li><strong>Open Standards:</strong> We utilize industry-standard symbologies (Code 128, UPC, QR).</li>
-                <li><strong>Accessibility:</strong> Built with modern web standards (PWA) for use on any device.</li>
+                <li><strong>QR Code:</strong> The most versatile matrix barcode. Ideal for embedding URLs, VCard contact info, Wi-Fi credentials, and other rich text payloads. QR Codes include error-correction capability (levels L, M, Q, H), allowing them to remain scannable even when partially damaged or obscured.</li>
+                <li><strong>Code 128:</strong> A high-density linear barcode capable of encoding all 128 ASCII characters. It is the standard for shipping labels, courier packages, and warehouse management systems (WMS) globally. Code 128 is the most information-dense linear barcode for alphanumeric data.</li>
+                <li><strong>Code 39:</strong> One of the oldest and most widely adopted linear barcodes. Commonly found in legacy industrial, automotive, and military applications. It encodes uppercase letters, digits, and a small set of special characters.</li>
+                <li><strong>EAN-13:</strong> The International Article Number standard used by virtually every consumer product sold at retail globally (outside North America). The 13-digit format includes a country prefix and a check digit for validation.</li>
+                <li><strong>UPC-A:</strong> The Universal Product Code used as the standard barcode for retail point-of-sale scanning in North America. UPC-A encodes 12 numeric digits and is essential for grocery, pharmacy, and general merchandise environments.</li>
             </ul>
 
-            <p>Part of the <a href="https://chessbotbuddies.org" target="_blank">ChessBotBuddies</a> developer network.</p>
+            <h2>Engineering Standards</h2>
+            <p>Every feature in OB Barcode Generator is built to a set of core engineering principles that reflect our commitment to quality:</p>
+            <ul>
+                <li><strong>Privacy First:</strong> No barcode data you enter ever leaves your machine. There is no backend server receiving your product codes, tracking URLs, or personal identifiers.</li>
+                <li><strong>Open Web Standards:</strong> We use JsBarcode and a QR code generator library — both open-source, auditable implementations. There are no proprietary black-box generation algorithms.</li>
+                <li><strong>Progressive Web App (PWA):</strong> OB Barcode Generator is installable on any device and functions fully offline. The entire application can be cached by your browser service worker after the first visit.</li>
+                <li><strong>High-Fidelity Exports:</strong> SVG exports are lossless vector files, suitable for industrial-grade label printing at any DPI. PNG exports are rasterized at screen resolution for quick sharing and embedding.</li>
+                <li><strong>Batch Processing:</strong> Our CSV batch engine allows you to import hundreds of rows and generate a print-ready label sheet in seconds, all without leaving the browser tab.</li>
+            </ul>
+
+            <h2>Choosing the Right Barcode Format</h2>
+            <p>Selecting the correct symbology is critical for scanner compatibility and operational reliability. Here is a reference guide:</p>
+            <ul>
+                <li>Use <strong>QR Code</strong> when your payload is a URL, contact info, or multi-line text.</li>
+                <li>Use <strong>Code 128</strong> for internal tracking, warehouse labels, and alphanumeric SKU identifiers.</li>
+                <li>Use <strong>EAN-13</strong> for international retail products registered with a GS1 company prefix.</li>
+                <li>Use <strong>UPC-A</strong> for North American retail point-of-sale (POS) scanning requirements.</li>
+                <li>Use <strong>Code 39</strong> for compatibility with older industrial scanners or legacy systems that do not support Code 128.</li>
+            </ul>
+
+            <h2>About Molave Labs</h2>
+            <p>Molave Labs is an independent developer studio focused on building precision web utilities. Our products are designed for professionals who need reliable, no-nonsense tooling that respects their time and data. OB Barcode Generator is part of a suite of tools, alongside <a href="https://precision-calc.com/" target="_blank" rel="noopener">PrecisionCalc</a> — a high-accuracy financial and engineering calculator platform.</p>
+            <p>We are committed to keeping our tools free, ad-supported, and continuously improved. If you have a feature request, troubleshooting question, or partnership inquiry, visit our <a href="support.html">Support page</a>.</p>
         </section>
+
         <div class="footer-note">
-            <p>&copy; 2026 Molave Labs. All rights reserved.</p>
+            <p>&copy; 2026 Molave Labs. All rights reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color:var(--primary);">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms.html" style="color:var(--primary);">Terms of Use</a></p>
         </div>
     </main>
-    <script src="app.js"></script>
-    
+    <script src="app.js" defer></script>
 </body>
 </html>
