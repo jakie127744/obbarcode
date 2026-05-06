@@ -1724,6 +1724,40 @@
     });
   }
 
+  function initAdFallback() {
+    // Check if AdSense is working after a delay
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const ads = document.querySelectorAll('.adsbygoogle');
+        let adsLoaded = false;
+        
+        ads.forEach(ad => {
+          // Check if ad was filled (status="filled" or has an iframe/content)
+          if (ad.getAttribute('data-ad-status') === 'filled' || ad.children.length > 0) {
+            adsLoaded = true;
+          }
+        });
+
+        // If no AdSense ads are active, trigger the backup
+        if (!adsLoaded) {
+          console.log("AdSense did not load. Triggering backup ads...");
+          const script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.src = 'https://static.aclib.com/aclib.js';
+          script.async = true;
+          script.onload = () => {
+            if (window.aclib && typeof window.aclib.runAutoTag === 'function') {
+              window.aclib.runAutoTag({
+                zoneId: 'qb5lqadkdr',
+              });
+            }
+          };
+          document.head.appendChild(script);
+        }
+      }, 4000); // 4 second delay to give AdSense ample time
+    });
+  }
+
   initConsentBanner();
   initAnalytics();
   initTheme();
@@ -1733,6 +1767,7 @@
   initCsvUpload();
   initGuardedAds();
   initPwa();
+  initAdFallback();
   if (labelSheetEl) {
     applyLabelDimensions();
     labelSheetEl.classList.add("empty");
@@ -1749,3 +1784,4 @@
     generateCode();
   });
 })();
+
