@@ -46,9 +46,11 @@
   const presetNameEl = document.getElementById("presetName");
   const savePresetBtn = document.getElementById("savePresetBtn");
   const savedPresetsEl = document.getElementById("savedPresets");
-  const loadPresetBtn = document.getElementById("loadPresetBtn");
-  const deletePresetBtn = document.getElementById("deletePresetBtn");
   const recentCodesEl = document.getElementById("recentCodes");
+  const clearRecentsBtn = document.getElementById("clearRecentsBtn");
+  const installNudgeEl = document.getElementById("installNudge");
+  const installNudgeBtn = document.getElementById("installNudgeBtn");
+  const installNudgeDismiss = document.getElementById("installNudgeDismiss");
   const runChecksBtn = document.getElementById("runChecksBtn");
   const checksOutputEl = document.getElementById("checksOutput");
 
@@ -56,14 +58,55 @@
   const consentAccept = document.getElementById("consentAccept");
   const consentReject = document.getElementById("consentReject");
 
+  const returnNameEl = document.getElementById("returnName");
+  const returnAddress1El = document.getElementById("returnAddress1");
+  const returnAddress2El = document.getElementById("returnAddress2");
+  const returnCityEl = document.getElementById("returnCity");
+  const returnStateEl = document.getElementById("returnState");
+  const returnZipEl = document.getElementById("returnZip");
+  const returnCountryEl = document.getElementById("returnCountry");
+  const saveReturnAddressBtn = document.getElementById("saveReturnAddressBtn");
+  const returnAddressStatusEl = document.getElementById("returnAddressStatus");
+
+  const quickNameEl = document.getElementById("quickName");
+  const quickAddress1El = document.getElementById("quickAddress1");
+  const quickAddress2El = document.getElementById("quickAddress2");
+  const quickCityEl = document.getElementById("quickCity");
+  const quickStateEl = document.getElementById("quickState");
+  const quickZipEl = document.getElementById("quickZip");
+  const quickCountryEl = document.getElementById("quickCountry");
+  const addAddressBtn = document.getElementById("addAddressBtn");
+
+  const mailCsvFileEl = document.getElementById("mailCsvFile");
+  const mailBatchInputEl = document.getElementById("mailBatchInput");
+  const downloadMailTemplateBtn = document.getElementById("downloadMailTemplate");
+  const loadMailExampleCsvBtn = document.getElementById("loadMailExampleCsv");
+  const mailLabelSizeEl = document.getElementById("mailLabelSize");
+  const mailCustomDimensionsEl = document.getElementById("mailCustomDimensions");
+  const mailLabelWidthEl = document.getElementById("mailLabelWidth");
+  const mailLabelHeightEl = document.getElementById("mailLabelHeight");
+  const mailIncludeQrEl = document.getElementById("mailIncludeQr");
+  const generateMailSheetBtn = document.getElementById("generateMailSheet");
+  const printMailLabelsBtn = document.getElementById("printMailLabels");
+  const clearMailBtn = document.getElementById("clearMailBtn");
+  const mailStatusEl = document.getElementById("mailStatus");
+  const mailLabelSheetEl = document.getElementById("mailLabelSheet");
+
   let currentMode = "QR";
   let deferredInstallPrompt = null;
   let librariesReadyPromise = null;
   let typingTimer = null;
   let toastTimer = null;
   let adsReflowTimer = null;
+  let printFrame = null;
   const ANALYTICS_KEY = "obAnalyticsV1";
   const PRESETS_KEY = "obSavedPresetsV1";
+  const RETURN_ADDRESS_KEY = "obReturnAddressV1";
+  const MAIL_LABEL_PRESETS = {
+    avery5160: { width: 66.7, height: 25.4 },
+    avery5163: { width: 101.6, height: 50.8 },
+    shipping4x6: { width: 152.4, height: 101.6 }
+  };
   const RECENTS_KEY = "obRecentCodesV1";
 
   const FORMAT_TO_JSBARCODE = {
@@ -304,19 +347,66 @@
     generateCode();
   }
 
+  function relativeTime(timestamp) {
+    if (!timestamp) {
+      return "";
+    }
+    const diffMs = Date.now() - timestamp;
+    const diffSec = Math.floor(diffMs / 1000);
+    if (diffSec < 60) return "Just now";
+    const diffMin = Math.floor(diffSec / 60);
+    if (diffMin < 60) return `${diffMin}m ago`;
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return `${diffHr}h ago`;
+    const diffDay = Math.floor(diffHr / 24);
+    if (diffDay < 30) return `${diffDay}d ago`;
+    return new Date(timestamp).toLocaleDateString();
+  }
+
   function renderSavedPresets() {
     if (!savedPresetsEl) {
       return;
     }
 
     const presets = loadPresets();
-    savedPresetsEl.innerHTML = '<option value="">Select a saved preset</option>';
+    savedPresetsEl.innerHTML = "";
+
+    if (!presets.length) {
+      const empty = document.createElement("p");
+      empty.className = "empty-hint";
+      empty.textContent = "No saved presets yet — configure a code above and save it.";
+      savedPresetsEl.appendChild(empty);
+      return;
+    }
 
     presets.forEach((preset) => {
-      const option = document.createElement("option");
-      option.value = preset.id;
-      option.textContent = `${preset.name} (${preset.state.format})`;
-      savedPresetsEl.appendChild(option);
+      const chip = document.createElement("div");
+      chip.className = "preset-chip";
+
+      const loadBtn = document.createElement("button");
+      loadBtn.type = "button";
+      loadBtn.className = "preset-chip-load";
+      loadBtn.title = `Load ${preset.name}`;
+      loadBtn.textContent = `${preset.name} (${preset.state.format})`;
+      loadBtn.addEventListener("click", () => {
+        applySavedState(preset.state);
+        setStatus(`Preset loaded: ${preset.name}`);
+      });
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "preset-chip-delete";
+      deleteBtn.title = `Delete ${preset.name}`;
+      deleteBtn.textContent = "×";
+      deleteBtn.addEventListener("click", () => {
+        savePresets(loadPresets().filter((item) => item.id !== preset.id));
+        renderSavedPresets();
+        setStatus("Preset deleted.");
+      });
+
+      chip.appendChild(loadBtn);
+      chip.appendChild(deleteBtn);
+      savedPresetsEl.appendChild(chip);
     });
   }
 
@@ -328,18 +418,49 @@
     recentCodesEl.innerHTML = "";
     const recents = loadRecents();
     if (!recents.length) {
-      recentCodesEl.textContent = "No recent codes yet.";
+      recentCodesEl.innerHTML = '<p class="empty-hint">No recent codes yet.</p>';
       return;
     }
 
     recents.forEach((item) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "recent-code";
-      btn.title = `${item.format}: ${item.data}`;
-      btn.textContent = `${item.format}: ${item.data}`;
-      btn.addEventListener("click", () => applySavedState(item));
-      recentCodesEl.appendChild(btn);
+      const row = document.createElement("div");
+      row.className = "recent-row";
+
+      const main = document.createElement("button");
+      main.type = "button";
+      main.className = "recent-row-main";
+      main.title = `${item.format}: ${item.data}`;
+
+      const badge = document.createElement("span");
+      badge.className = "recent-badge";
+      badge.textContent = item.format;
+
+      const data = document.createElement("span");
+      data.className = "recent-data";
+      data.textContent = item.data;
+
+      const time = document.createElement("span");
+      time.className = "recent-time";
+      time.textContent = relativeTime(item.timestamp);
+
+      main.appendChild(badge);
+      main.appendChild(data);
+      main.appendChild(time);
+      main.addEventListener("click", () => applySavedState(item));
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "recent-delete";
+      deleteBtn.title = "Remove from history";
+      deleteBtn.textContent = "×";
+      deleteBtn.addEventListener("click", () => {
+        saveRecents(loadRecents().filter((r) => r.timestamp !== item.timestamp));
+        renderRecentCodes();
+      });
+
+      row.appendChild(main);
+      row.appendChild(deleteBtn);
+      recentCodesEl.appendChild(row);
     });
   }
 
@@ -348,11 +469,12 @@
     if (!current.data) {
       return;
     }
+    current.timestamp = Date.now();
 
     const recents = loadRecents();
     const deduped = recents.filter((item) => !(item.format === current.format && item.data === current.data));
     deduped.unshift(current);
-    saveRecents(deduped.slice(0, 2));
+    saveRecents(deduped.slice(0, 10));
     renderRecentCodes();
   }
 
@@ -868,6 +990,7 @@
       if (manualTrigger) {
         trackEvent("manualGenerateClicks");
         trackEvent("generates");
+        maybeShowInstallNudge();
       }
       rememberCurrentCode();
 
@@ -1183,6 +1306,7 @@
 
     labelSheetEl.innerHTML = "";
     labelSheetEl.classList.remove("empty");
+    labelSheetEl.classList.remove("hidden");
     applyLabelDimensions();
 
     let successCount = 0;
@@ -1225,6 +1349,7 @@
 
     if (!successCount) {
       labelSheetEl.classList.add("empty");
+      labelSheetEl.classList.add("hidden");
       setBatchStatus(`No labels generated. ${failures[0] || "Check CSV values."}`, "error");
       return;
     }
@@ -1273,6 +1398,7 @@
     batchInputEl.value = "";
     labelSheetEl.innerHTML = "";
     labelSheetEl.classList.add("empty");
+    labelSheetEl.classList.add("hidden");
     setBatchStatus("Label sheet cleared.");
   }
 
@@ -1301,6 +1427,412 @@
       } catch (_error) {
         setBatchStatus("Unable to read CSV file.", "error");
       }
+    });
+  }
+
+  function setMailStatus(message, type = "success") {
+    if (!mailStatusEl) {
+      return;
+    }
+    mailStatusEl.textContent = message;
+    mailStatusEl.className = type === "error" ? "status-msg error" : "status-msg";
+  }
+
+  function loadReturnAddress() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(RETURN_ADDRESS_KEY) || "null");
+      return parsed && typeof parsed === "object" ? parsed : null;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function applyReturnAddressToForm(address) {
+    if (!address || !returnNameEl) {
+      return;
+    }
+    returnNameEl.value = address.name || "";
+    returnAddress1El.value = address.address1 || "";
+    returnAddress2El.value = address.address2 || "";
+    returnCityEl.value = address.city || "";
+    returnStateEl.value = address.state || "";
+    returnZipEl.value = address.zip || "";
+    returnCountryEl.value = address.country || "";
+  }
+
+  function collectReturnAddress() {
+    return {
+      name: returnNameEl.value.trim(),
+      address1: returnAddress1El.value.trim(),
+      address2: returnAddress2El.value.trim(),
+      city: returnCityEl.value.trim(),
+      state: returnStateEl.value.trim(),
+      zip: returnZipEl.value.trim(),
+      country: returnCountryEl.value.trim()
+    };
+  }
+
+  function escapeCsvField(value) {
+    const str = String(value == null ? "" : value);
+    if (/[",\n]/.test(str)) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  }
+
+  function parseCsvLine(line) {
+    const fields = [];
+    let current = "";
+    let inQuotes = false;
+
+    for (let i = 0; i < line.length; i += 1) {
+      const char = line[i];
+      if (inQuotes) {
+        if (char === '"' && line[i + 1] === '"') {
+          current += '"';
+          i += 1;
+        } else if (char === '"') {
+          inQuotes = false;
+        } else {
+          current += char;
+        }
+      } else if (char === '"') {
+        inQuotes = true;
+      } else if (char === ",") {
+        fields.push(current);
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+    fields.push(current);
+    return fields.map((field) => field.trim());
+  }
+
+  function parseAddressCsvRows(csvText) {
+    const lines = csvText
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (!lines.length) {
+      return [];
+    }
+
+    const hasHeader = lines[0].toLowerCase().startsWith("name,");
+    const startIndex = hasHeader ? 1 : 0;
+
+    const rows = [];
+    for (let i = startIndex; i < lines.length; i += 1) {
+      const [name = "", address1 = "", address2 = "", city = "", state = "", zip = "", country = ""] = parseCsvLine(lines[i]);
+      if (!name && !address1) {
+        continue;
+      }
+      rows.push({ name, address1, address2, city, state, zip, country });
+    }
+
+    return rows;
+  }
+
+  function initReturnAddress() {
+    if (!returnNameEl || !saveReturnAddressBtn) {
+      return;
+    }
+
+    applyReturnAddressToForm(loadReturnAddress());
+
+    saveReturnAddressBtn.addEventListener("click", () => {
+      const address = collectReturnAddress();
+      localStorage.setItem(RETURN_ADDRESS_KEY, JSON.stringify(address));
+      if (returnAddressStatusEl) {
+        returnAddressStatusEl.textContent = "Return address saved on this device.";
+        returnAddressStatusEl.className = "status-msg";
+      }
+      showToast("Return address saved");
+    });
+  }
+
+  function addQuickAddressToList(options = {}) {
+    const name = quickNameEl.value.trim();
+    const address1 = quickAddress1El.value.trim();
+    if (!name || !address1) {
+      if (!options.silent) {
+        setMailStatus("Enter at least a name and address line 1.", "error");
+      }
+      return false;
+    }
+
+    const fields = [
+      name,
+      address1,
+      quickAddress2El.value.trim(),
+      quickCityEl.value.trim(),
+      quickStateEl.value.trim(),
+      quickZipEl.value.trim(),
+      quickCountryEl.value.trim()
+    ].map(escapeCsvField);
+
+    const existing = mailBatchInputEl.value.trim();
+    const hasHeader = existing.toLowerCase().startsWith("name,");
+    const lines = existing ? existing.split(/\r?\n/) : [];
+    if (!hasHeader) {
+      lines.unshift("name,address1,address2,city,state,zip,country");
+    }
+    lines.push(fields.join(","));
+    mailBatchInputEl.value = lines.join("\n");
+
+    [quickNameEl, quickAddress1El, quickAddress2El, quickCityEl, quickStateEl, quickZipEl, quickCountryEl].forEach((el) => {
+      el.value = "";
+    });
+
+    return true;
+  }
+
+  function initQuickAdd() {
+    if (!addAddressBtn || !mailBatchInputEl) {
+      return;
+    }
+
+    addAddressBtn.addEventListener("click", () => {
+      if (addQuickAddressToList()) {
+        setMailStatus("Address added to the recipients list below.");
+      }
+    });
+  }
+
+  function applyMailLabelDimensions() {
+    const preset = mailLabelSizeEl ? mailLabelSizeEl.value : "avery5160";
+    let width;
+    let height;
+
+    if (preset === "custom") {
+      width = Math.max(20, Number(mailLabelWidthEl.value) || 66.7);
+      height = Math.max(15, Number(mailLabelHeightEl.value) || 25.4);
+    } else {
+      const dims = MAIL_LABEL_PRESETS[preset] || MAIL_LABEL_PRESETS.avery5160;
+      width = dims.width;
+      height = dims.height;
+    }
+
+    mailLabelSheetEl.style.setProperty("--label-width", `${width}mm`);
+    mailLabelSheetEl.style.setProperty("--label-height", `${height}mm`);
+    return { width, height };
+  }
+
+  function initMailLabelSizeToggle() {
+    if (!mailLabelSizeEl || !mailCustomDimensionsEl) {
+      return;
+    }
+
+    const sync = () => {
+      mailCustomDimensionsEl.classList.toggle("hidden", mailLabelSizeEl.value !== "custom");
+    };
+
+    mailLabelSizeEl.addEventListener("change", sync);
+    sync();
+  }
+
+  async function generateMailingLabels() {
+    if (!mailLabelSheetEl) {
+      return;
+    }
+
+    if (mailIncludeQrEl && mailIncludeQrEl.checked && !window.qrcode) {
+      setMailStatus("Loading QR library...", "success");
+      const loaded = await ensureLibrariesLoaded();
+      if (!loaded) {
+        setMailStatus("Libraries failed to load. Check internet/CDN access and refresh.", "error");
+        return;
+      }
+    }
+
+    if (quickNameEl && quickNameEl.value.trim() && quickAddress1El.value.trim()) {
+      addQuickAddressToList({ silent: true });
+    }
+
+    const rows = parseAddressCsvRows(mailBatchInputEl.value);
+    if (!rows.length) {
+      setMailStatus("Add at least one recipient address first — fill in the Quick Add form and click \"Add to List\", paste CSV rows, or upload a CSV file.", "error");
+      return;
+    }
+
+    mailLabelSheetEl.innerHTML = "";
+    mailLabelSheetEl.classList.remove("empty");
+    mailLabelSheetEl.classList.remove("hidden");
+    const { width } = applyMailLabelDimensions();
+
+    const returnAddress = returnNameEl ? collectReturnAddress() : loadReturnAddress();
+    const hasReturnAddress = Boolean(returnAddress && (returnAddress.name || returnAddress.address1));
+    const includeQr = Boolean(mailIncludeQrEl && mailIncludeQrEl.checked);
+    const qrPx = Math.round(Math.max(20, Math.min(width, 30)) * 3.2);
+
+    let successCount = 0;
+
+    for (const row of rows) {
+      const item = document.createElement("article");
+      item.className = "mail-label-item";
+
+      if (hasReturnAddress) {
+        const returnBlock = document.createElement("div");
+        returnBlock.className = "mail-return-block";
+        returnBlock.textContent = [returnAddress.name, returnAddress.address1, returnAddress.address2, [returnAddress.city, returnAddress.state, returnAddress.zip].filter(Boolean).join(", "), returnAddress.country]
+          .filter(Boolean)
+          .join(" · ");
+        item.appendChild(returnBlock);
+      }
+
+      const body = document.createElement("div");
+      body.className = "mail-label-body";
+
+      const addressBlock = document.createElement("div");
+      addressBlock.className = "mail-address-block";
+
+      const nameLine = document.createElement("strong");
+      nameLine.textContent = row.name;
+      addressBlock.appendChild(nameLine);
+
+      const addressLines = [row.address1, row.address2, [row.city, row.state, row.zip].filter(Boolean).join(", "), row.country].filter(Boolean);
+      addressLines.forEach((line) => {
+        const p = document.createElement("span");
+        p.textContent = line;
+        addressBlock.appendChild(p);
+      });
+
+      body.appendChild(addressBlock);
+
+      if (includeQr) {
+        const addressText = [row.name, row.address1, row.address2, row.city, row.state, row.zip, row.country].filter(Boolean).join(", ");
+        try {
+          const qrSrc = await qrToPngDataUrl(addressText, qrPx);
+          const img = document.createElement("img");
+          img.className = "mail-qr";
+          img.src = qrSrc;
+          img.alt = "QR code with address";
+          body.appendChild(img);
+        } catch (_error) {
+          // Skip QR for this label if it fails to render; the text address is still printed.
+        }
+      }
+
+      item.appendChild(body);
+      mailLabelSheetEl.appendChild(item);
+      successCount += 1;
+    }
+
+    if (!successCount) {
+      mailLabelSheetEl.classList.add("empty");
+      mailLabelSheetEl.classList.add("hidden");
+      setMailStatus("No labels generated. Check your recipient list.", "error");
+      return;
+    }
+
+    setMailStatus(`Generated ${successCount} mailing labels for printing.`);
+    trackEvent("mailLabelGenerates");
+  }
+
+  function downloadMailCsvTemplate() {
+    const content = [
+      "name,address1,address2,city,state,zip,country",
+      "Jane Smith,123 Main St,,Springfield,IL,62704,USA",
+      "John Doe,456 Oak Ave,Suite 100,Denver,CO,80202,USA"
+    ].join("\n");
+    const blob = new Blob([content], { type: "text/csv;charset=utf-8" });
+    downloadBlob(blob, "mailing-labels-template.csv");
+  }
+
+  function loadMailExampleCsv() {
+    if (!mailBatchInputEl) {
+      return;
+    }
+
+    mailBatchInputEl.value = [
+      "name,address1,address2,city,state,zip,country",
+      "Jane Smith,123 Main St,,Springfield,IL,62704,USA",
+      "John Doe,456 Oak Ave,Suite 100,Denver,CO,80202,USA",
+      "Acme Corp,789 Industrial Pkwy,,Austin,TX,73301,USA"
+    ].join("\n");
+
+    setMailStatus("Example recipients loaded. Click Generate Sheet.");
+  }
+
+  function clearMailingLabels() {
+    mailBatchInputEl.value = "";
+    mailLabelSheetEl.innerHTML = "";
+    mailLabelSheetEl.classList.add("empty");
+    mailLabelSheetEl.classList.add("hidden");
+    setMailStatus("Mailing labels cleared.");
+  }
+
+  function initMailCsvUpload() {
+    if (!mailCsvFileEl || !mailBatchInputEl) {
+      return;
+    }
+
+    mailCsvFileEl.addEventListener("change", async () => {
+      const file = mailCsvFileEl.files && mailCsvFileEl.files[0];
+      if (!file) {
+        return;
+      }
+
+      try {
+        mailBatchInputEl.value = await file.text();
+        setMailStatus("CSV loaded. Click Generate Sheet.");
+      } catch (_error) {
+        setMailStatus("Unable to read CSV file.", "error");
+      }
+    });
+  }
+
+  function printLabelSheet(sheetEl) {
+    if (!sheetEl || !sheetEl.children.length || sheetEl.classList.contains("empty")) {
+      setStatus("Generate a label sheet before printing.", "error");
+      return;
+    }
+
+    if (!printFrame) {
+      printFrame = document.createElement("iframe");
+      printFrame.style.position = "fixed";
+      printFrame.style.right = "0";
+      printFrame.style.bottom = "0";
+      printFrame.style.width = "0";
+      printFrame.style.height = "0";
+      printFrame.style.border = "0";
+      document.body.appendChild(printFrame);
+    }
+
+    const width = sheetEl.style.getPropertyValue("--label-width") || "66.7mm";
+    const height = sheetEl.style.getPropertyValue("--label-height") || "25.4mm";
+
+    const doc = printFrame.contentWindow.document;
+    doc.open();
+    doc.write(`<!doctype html><html><head><meta charset="utf-8"><title>Print Labels</title><style>
+      @page { margin: 5mm; }
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: Arial, sans-serif; }
+      .label-sheet { display: grid; grid-template-columns: repeat(auto-fill, ${width}); gap: 1.5mm; }
+      .label-item, .mail-label-item { width: ${width}; height: ${height}; overflow: hidden; border: 1px dashed #ccc; padding: 2mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+      .label-item img { max-width: 100%; max-height: 70%; }
+      .label-item small { font-size: 9px; margin-top: 2px; }
+      .mail-label-item { align-items: stretch; text-align: left; justify-content: flex-start; }
+      .mail-return-block { font-size: 8pt; color: #555; margin-bottom: 4px; }
+      .mail-label-body { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex: 1; }
+      .mail-address-block { display: flex; flex-direction: column; font-size: 9pt; line-height: 1.45; }
+      .mail-address-block strong { font-size: 11pt; }
+      .mail-qr { width: 18mm; height: 18mm; flex-shrink: 0; }
+    </style></head><body><div class="label-sheet">${sheetEl.innerHTML}</div></body></html>`);
+    doc.close();
+
+    const images = Array.from(doc.images || []);
+    const whenReady = images.length
+      ? Promise.all(images.map((img) => (img.complete ? Promise.resolve() : new Promise((resolve) => {
+          img.addEventListener("load", resolve, { once: true });
+          img.addEventListener("error", resolve, { once: true });
+        }))))
+      : Promise.resolve();
+
+    whenReady.then(() => {
+      printFrame.contentWindow.focus();
+      printFrame.contentWindow.print();
     });
   }
 
@@ -1429,7 +1961,7 @@
       installBtn.classList.remove("hidden");
     });
 
-    installBtn.addEventListener("click", async () => {
+    const runInstallPrompt = async () => {
       if (!deferredInstallPrompt) {
         setStatus("Install prompt is not available yet.", "error");
         return;
@@ -1439,12 +1971,43 @@
       await deferredInstallPrompt.userChoice;
       deferredInstallPrompt = null;
       installBtn.classList.add("hidden");
-    });
+      hideInstallNudge();
+    };
+
+    installBtn.addEventListener("click", runInstallPrompt);
 
     window.addEventListener("appinstalled", () => {
       setStatus("App installed successfully.");
       installBtn.classList.add("hidden");
+      hideInstallNudge();
     });
+
+    if (installNudgeBtn) {
+      installNudgeBtn.addEventListener("click", runInstallPrompt);
+    }
+
+    if (installNudgeDismiss) {
+      installNudgeDismiss.addEventListener("click", () => {
+        localStorage.setItem("obInstallNudgeDismissed", "1");
+        hideInstallNudge();
+      });
+    }
+  }
+
+  function hideInstallNudge() {
+    if (installNudgeEl) {
+      installNudgeEl.classList.add("hidden");
+    }
+  }
+
+  function maybeShowInstallNudge() {
+    if (!installNudgeEl || !deferredInstallPrompt) {
+      return;
+    }
+    if (localStorage.getItem("obInstallNudgeDismissed")) {
+      return;
+    }
+    installNudgeEl.classList.remove("hidden");
   }
 
   function applyPreset(type) {
@@ -1472,7 +2035,7 @@
   }
 
   function initSavedPresets() {
-    if (!savePresetBtn || !savedPresetsEl || !loadPresetBtn || !deletePresetBtn) {
+    if (!savePresetBtn || !savedPresetsEl) {
       return;
     }
 
@@ -1501,36 +2064,13 @@
       showToast("Preset saved");
     });
 
-    loadPresetBtn.addEventListener("click", () => {
-      const id = savedPresetsEl.value;
-      if (!id) {
-        setStatus("Select a preset to load.", "error");
-        return;
-      }
-
-      const preset = loadPresets().find((item) => item.id === id);
-      if (!preset) {
-        setStatus("Preset not found.", "error");
-        return;
-      }
-
-      applySavedState(preset.state);
-      setStatus(`Preset loaded: ${preset.name}`);
-    });
-
-    deletePresetBtn.addEventListener("click", () => {
-      const id = savedPresetsEl.value;
-      if (!id) {
-        setStatus("Select a preset to delete.", "error");
-        return;
-      }
-
-      const presets = loadPresets();
-      const next = presets.filter((item) => item.id !== id);
-      savePresets(next);
-      renderSavedPresets();
-      setStatus("Preset deleted.");
-    });
+    if (clearRecentsBtn) {
+      clearRecentsBtn.addEventListener("click", () => {
+        saveRecents([]);
+        renderRecentCodes();
+        setStatus("History cleared.");
+      });
+    }
   }
 
   function initWorkflowShortcuts() {
@@ -1669,12 +2209,24 @@
   if (resetBtn) resetBtn.addEventListener("click", resetForm);
   if (generateBatchBtn) generateBatchBtn.addEventListener("click", generateBatchSheet);
   if (downloadBatchZipBtn) downloadBatchZipBtn.addEventListener("click", downloadBatchZip);
-  if (printLabelsBtn) printLabelsBtn.addEventListener("click", () => window.print());
+  if (printLabelsBtn) printLabelsBtn.addEventListener("click", () => printLabelSheet(labelSheetEl));
   if (clearBatchBtn) clearBatchBtn.addEventListener("click", clearBatch);
   if (downloadTemplateBtn) downloadTemplateBtn.addEventListener("click", downloadCsvTemplate);
   if (loadExampleCsvBtn) loadExampleCsvBtn.addEventListener("click", loadExampleCsv);
   if (labelWidthEl) labelWidthEl.addEventListener("change", applyLabelDimensions);
   if (labelHeightEl) labelHeightEl.addEventListener("change", applyLabelDimensions);
+
+  if (generateMailSheetBtn) generateMailSheetBtn.addEventListener("click", generateMailingLabels);
+  if (printMailLabelsBtn) printMailLabelsBtn.addEventListener("click", () => printLabelSheet(mailLabelSheetEl));
+  if (clearMailBtn) clearMailBtn.addEventListener("click", clearMailingLabels);
+  if (downloadMailTemplateBtn) downloadMailTemplateBtn.addEventListener("click", downloadMailCsvTemplate);
+  if (loadMailExampleCsvBtn) loadMailExampleCsvBtn.addEventListener("click", loadMailExampleCsv);
+  if (mailLabelWidthEl) mailLabelWidthEl.addEventListener("change", applyMailLabelDimensions);
+  if (mailLabelHeightEl) mailLabelHeightEl.addEventListener("change", applyMailLabelDimensions);
+  initReturnAddress();
+  initQuickAdd();
+  initMailLabelSizeToggle();
+  initMailCsvUpload();
 
   document.querySelectorAll(".preset").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1771,6 +2323,10 @@
   if (labelSheetEl) {
     applyLabelDimensions();
     labelSheetEl.classList.add("empty");
+  }
+  if (mailLabelSheetEl) {
+    applyMailLabelDimensions();
+    mailLabelSheetEl.classList.add("empty");
   }
   dataEl.value = "https://example.com";
   if (batchInputEl) {
