@@ -1,4 +1,4 @@
-const CACHE_NAME = "ob-generator-v3";
+const CACHE_NAME = "ob-generator-v4";
 const ASSETS = [
   "./",
   "./index.html",
@@ -7,7 +7,6 @@ const ASSETS = [
   "./manifest.webmanifest",
   "./vendor/JsBarcode.all.min.js",
   "./vendor/qrcode-generator.min.js",
-  "./assets/mascot.png",
   "./icons/icon-192.svg",
   "./icons/icon-512.svg"
 ];
